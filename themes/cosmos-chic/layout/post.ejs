@@ -30,14 +30,14 @@ const hasToc = chic.post_toc_enable !== false && p.toc && toc(page.content).leng
   </header>
   <div class="article-layout">
     <% if (hasToc) { %>
-    <aside class="post-toc" aria-label="<%= cx('contents') %>">
+    <div class="post-toc">
       <div class="tocbot-list"></div>
       <div class="tocbot-list-menu">
         <a class="tocbot-toc-expand">Expand all</a>
         <a class="tocbot-toc-top">Back to top</a>
         <a class="tocbot-toc-bottom">Go to bottom</a>
       </div>
-    </aside>
+    </div>
     <% } %>
     <div class="article-body">
       <div class="prose post-content" data-reading-content>
