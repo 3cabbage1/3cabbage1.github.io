@@ -30,14 +30,15 @@ const hasToc = chic.post_toc_enable !== false && p.toc && toc(page.content).leng
   </header>
   <div class="article-layout">
     <% if (hasToc) { %>
-    <aside class="post-toc" aria-label="<%= cx('contents') %>">
-      <div class="tocbot-list"></div>
+    <nav class="contents" aria-label="<%= cx('contents') %>">
+      <h2><%= cx('contents') %></h2>
+      <%- toc(page.content, { list_number: p.toc_numbers, max_depth: p.toc_depth }) %>
       <div class="tocbot-list-menu">
         <a class="tocbot-toc-expand">Expand all</a>
         <a class="tocbot-toc-top">Back to top</a>
         <a class="tocbot-toc-bottom">Go to bottom</a>
       </div>
-    </aside>
+    </nav>
     <% } %>
     <div class="article-body">
       <div class="prose post-content" data-reading-content>
@@ -87,3 +88,4 @@ const hasToc = chic.post_toc_enable !== false && p.toc && toc(page.content).leng
     </div>
   </div>
 </article>
+

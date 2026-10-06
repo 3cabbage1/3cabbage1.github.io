@@ -200,24 +200,25 @@ body.dark-theme .navbar-header a:hover { color: #fff; }
 .post-nav a.prev:hover { transform: translateX(-4px); color: var(--accent); }
 .post-nav a.next:hover { transform: translateX(4px); color: var(--accent); }
 
-/* Chic post-toc (fixed right-side TOC) */
-.post-toc { position: fixed; top: 118px; right: 2em; width: 15rem; font-size: 12px; z-index: 5; }
-.post-toc .tocbot-list { max-height: 450px; max-width: 250px; overflow: auto; position: relative; padding-right: 14px; }
-.post-toc .tocbot-list::-webkit-scrollbar { width: 6px; height: 6px; }
-.post-toc .tocbot-list::-webkit-scrollbar-thumb { width: 6px; background-color: var(--rule); border-radius: 2px; }
-.post-toc .tocbot-list ul { list-style: none; position: inherit; }
-.post-toc .tocbot-list .is-collapsible { max-height: 1000px; overflow: hidden; transition: all 300ms ease-in-out; }
-.post-toc .tocbot-list .is-collapsed { max-height: 0; }
-.post-toc .tocbot-list .is-anchor-visible > .toc-link { font-weight: 700; }
-.post-toc .tocbot-list li { margin-left: 4px; }
-.post-toc a.toc-link { color: var(--muted); display: block; padding: 4px 0 4px 12px; border-left: 2px solid var(--rule); transition: color 180ms, border-color 180ms; }
-.post-toc a.toc-link:hover { color: var(--accent); }
-.post-toc a.toc-link::before { display: none; }
-.post-toc a.is-active-link { color: var(--accent); border-left-color: var(--accent); font-weight: 600; }
-.post-toc .tocbot-list-menu { margin: 16px 12px; font-size: 12px; }
-.post-toc .tocbot-list-menu a { display: block; margin: 6px 0; color: var(--muted); cursor: pointer; }
-.post-toc .tocbot-list-menu a:hover { color: var(--ink); }
-
+/* Post TOC: cosmos nav.contents element, kept fixed on the right side
+   with Chic tocbot interactions (scroll-spy, collapse, menu) */
+.article-page .contents { position: fixed; top: 118px; right: 2em; width: 15rem; font-size: 13px; z-index: 5; }
+.article-page .contents h2 { margin: 0; }
+.article-page .contents .toc, .article-page .contents .toc-list { list-style: none; margin: 16px 0 0; padding: 0 14px 0 0; max-height: 450px; max-width: 250px; overflow: auto; position: relative; }
+.article-page .contents .toc::-webkit-scrollbar, .article-page .contents .toc-list::-webkit-scrollbar { width: 6px; height: 6px; }
+.article-page .contents .toc::-webkit-scrollbar-thumb, .article-page .contents .toc-list::-webkit-scrollbar-thumb { width: 6px; background-color: var(--rule); border-radius: 2px; }
+.article-page .contents ul { list-style: none; }
+.article-page .contents .toc-child { padding-left: 15px; margin: 4px 0; }
+.article-page .contents li { margin: 7px 0; line-height: 1.5; }
+.article-page .contents a.toc-link { color: var(--muted); display: block; padding: 4px 0 4px 12px; border-left: 2px solid var(--rule); transition: color 180ms, border-color 180ms; }
+.article-page .contents a.toc-link:hover { color: var(--accent); }
+.article-page .contents a.toc-link::before { display: none; }
+.article-page .contents a.is-active-link { color: var(--accent); border-left-color: var(--accent); font-weight: 600; }
+.article-page .contents .is-collapsible { max-height: 1000px; overflow: hidden; transition: all 300ms ease-in-out; }
+.article-page .contents .is-collapsed { max-height: 0; }
+.article-page .contents .tocbot-list-menu { margin: 16px 12px; font-size: 12px; }
+.article-page .contents .tocbot-list-menu a { display: block; margin: 6px 0; color: var(--muted); cursor: pointer; }
+.article-page .contents .tocbot-list-menu a:hover { color: var(--ink); }
 /* ===== Chic footer ===== */
 .footer { min-height: 4rem; width: 100%; text-align: center; line-height: 4rem; border-top: 1px solid var(--rule); font-size: 14px; color: var(--muted); flex-shrink: 0; view-transition-name: site-footer; }
 .footer .copyright { font-size: 14px; }
@@ -226,7 +227,7 @@ body.dark-theme .navbar-header a:hover { color: #fff; }
 
 /* ===== Responsive ===== */
 @media (max-width: 1279px) {
-  .post-toc { display: none; }
+  .article-page .contents { display: none; }
 }
 @media (max-width: 1200px) {
   .hero-copy .description, .hero-copy .hero-links, .hero-copy .links { margin-left: 48px; }
@@ -286,7 +287,8 @@ body.dark-theme .navbar-header a:hover { color: #fff; }
 
 /* ===== Print ===== */
 @media print {
-  .chic-header, .site-header, .footer, .post-toc, .reading-progress, .article-back { display: none !important; }
+  .chic-header, .site-header, .footer, .article-page .contents, .reading-progress, .article-back { display: none !important; }
 }
+
 
 
