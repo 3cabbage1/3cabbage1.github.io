@@ -160,7 +160,7 @@ style:
 
 motion:
   enabled: true
-  page_transitions: true
+  page_transitions: false
 
 seo:
   image: ''
@@ -180,6 +180,7 @@ custom:
   after_content: ''
   after_about: ''
   after_post: ''
+
 
 
 

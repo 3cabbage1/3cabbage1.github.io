@@ -3,7 +3,7 @@
   <header class="index-heading"><h1><%= cosmos_listing_title() %><% if (l.title_period) { %><span class="small-dot">.</span><% } %></h1></header>
   <% if (l.categories || c.search.enabled) { %>
   <div class="index-tools">
-    <% if (l.categories) { %><nav class="topic-nav" aria-label="<%= cx('filter_topics') %>"><a href="<%= cosmos_route('blog') %>" <%- !page.category && !page.tag && !page.archive ? 'aria-current="page"' : '' %>><%= l.title || cx('all_writing') %><% if (l.counts) { %> <span><%= site.posts.length %></span><% } %></a><% site.categories.sort('name').forEach(category => { %><a href="<%= url_for(category.path) %>" <%- page.category === category.name ? 'aria-current="page"' : '' %>><%= category.name %></a><% }) %></nav><% } %>
+    <% if (l.categories) { %><nav class="topic-nav" aria-label="<%= cx('filter_topics') %>"><a href="<%= cosmos_route('blog') %>" <%- !page.category && !page.tag && !page.archive ? 'aria-current="page"' : '' %>><%= l.title || cx('all_writing') %><% if (l.counts) { %> <span><%= site.posts.length %></span><% } %></a><% site.tags.sort('name').forEach(tag => { %><a href="<%= url_for(tag.path) %>" <%- page.tag === tag.name ? 'aria-current="page"' : '' %>># <%= tag.name %><% if (l.counts) { %> <span><%= tag.length %></span><% } %></a><% }) %></nav><% } %>
     <% if (c.search.enabled) { %><form class="search-form" role="search" id="search"><label for="post-search" class="sr-only"><%= cx('search') %></label><%- icon('search') %><input id="post-search" type="search" placeholder="<%= cx('search_placeholder') %>" autocomplete="off" name="q"><button class="clear-search" type="button" aria-label="<%= cx('clear_search') %>" hidden><%- icon('close') %></button></form><% } %>
   </div>
   <% } %>

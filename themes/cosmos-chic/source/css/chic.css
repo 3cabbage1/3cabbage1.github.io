@@ -115,7 +115,9 @@ body.dark-theme .navbar-header a:hover { color: #fff; }
 .tag-cloud-tags small { margin: 0 .3em; color: var(--muted); font-size: .68em; }
 
 /* ===== Post detail page (Chic structure) ===== */
+.article-page { position: relative; }
 .article-page .article-heading { padding-left: 0; max-width: 780px; margin: 0 auto; }
+.article-page .article-back { position: absolute; left: 0; top: 37px; }
 .article-page .article-layout { display: block; padding-top: 2rem; }
 .article-page .article-body { max-width: 780px; margin: 0 auto; }
 .post-meta { display: flex; gap: 8px 26px; flex-wrap: wrap; align-items: center; font-size: 14px; line-height: 1.9; color: var(--muted); margin-top: 26px; }
@@ -203,7 +205,10 @@ body.dark-theme .navbar-header a:hover { color: #fff; }
 .post-toc .tocbot-list { max-height: 450px; max-width: 250px; overflow: auto; position: relative; padding-right: 14px; }
 .post-toc .tocbot-list::-webkit-scrollbar { width: 6px; height: 6px; }
 .post-toc .tocbot-list::-webkit-scrollbar-thumb { width: 6px; background-color: var(--rule); border-radius: 2px; }
-.post-toc .tocbot-list ul { list-style: none; position: inherit; overflow: hidden; }
+.post-toc .tocbot-list ul { list-style: none; position: inherit; }
+.post-toc .tocbot-list .is-collapsible { max-height: 1000px; overflow: hidden; transition: all 300ms ease-in-out; }
+.post-toc .tocbot-list .is-collapsed { max-height: 0; }
+.post-toc .tocbot-list .is-anchor-visible > .toc-link { font-weight: 700; }
 .post-toc .tocbot-list li { margin-left: 4px; }
 .post-toc a.toc-link { color: var(--muted); display: block; padding: 4px 0 4px 12px; border-left: 2px solid var(--rule); transition: color 180ms, border-color 180ms; }
 .post-toc a.toc-link:hover { color: var(--accent); }
@@ -225,6 +230,9 @@ body.dark-theme .navbar-header a:hover { color: #fff; }
 }
 @media (max-width: 1200px) {
   .hero-copy .description, .hero-copy .hero-links, .hero-copy .links { margin-left: 48px; }
+}
+@media (max-width: 900px) {
+  .article-page .article-back { position: static; display: inline-flex; }
 }
 @media (max-width: 980px) {
   .hero-copy .description, .hero-copy .hero-links, .hero-copy .links { margin-left: 44px; }
@@ -280,4 +288,5 @@ body.dark-theme .navbar-header a:hover { color: #fff; }
 @media print {
   .chic-header, .site-header, .footer, .post-toc, .reading-progress, .article-back { display: none !important; }
 }
+
 
