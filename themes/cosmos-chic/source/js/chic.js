@@ -53,32 +53,42 @@
     }
   });
 
-  /* ===== Post TOC: sits under the header on the right, becomes fixed
-     when it reaches the browser top (cosmos-style sticky) ===== */
+  /* ===== Sticky TOC & back link: fixed only after touching the browser top ===== */
   const toc = document.querySelector('.post-toc');
   const tocLayout = toc && toc.closest('.article-layout');
-  if (toc && tocLayout) {
-    const unstick = () => {
-      toc.classList.remove('is-stuck');
-      toc.style.left = '';
-      toc.style.width = '';
-      toc.style.right = '';
-    };
+  const back = document.querySelector('.article-back');
+  const page = document.querySelector('.article-page');
+  const backDesktop = matchMedia('(min-width: 1201px)');
+  if (toc || back) {
     const evaluate = () => {
-      if (!toc.classList.contains('is-stuck')) {
-        const rect = toc.getBoundingClientRect();
-        if (rect.top <= 0 && tocLayout.getBoundingClientRect().top < 0) {
-          toc.style.left = rect.left + 'px';
-          toc.style.width = rect.width + 'px';
-          toc.style.right = 'auto';
+      if (toc && tocLayout) {
+        const absolute = getComputedStyle(toc).position === 'absolute' && toc.offsetHeight > 0;
+        if (absolute && tocLayout.getBoundingClientRect().top < 0) {
           toc.classList.add('is-stuck');
+        } else if (!absolute || tocLayout.getBoundingClientRect().top >= 0) {
+          toc.classList.remove('is-stuck');
         }
-      } else if (tocLayout.getBoundingClientRect().top >= 0) {
-        unstick();
+      }
+      if (back && page) {
+        if (!backDesktop.matches) {
+          back.classList.remove('is-stuck');
+          back.style.left = '';
+        } else {
+          const absolute = getComputedStyle(back).position === 'absolute';
+          if (absolute && page.getBoundingClientRect().top < 0) {
+            if (!back.classList.contains('is-stuck')) back.style.left = back.getBoundingClientRect().left + 'px';
+            back.classList.add('is-stuck');
+          } else if (!absolute || page.getBoundingClientRect().top >= 0) {
+            back.classList.remove('is-stuck');
+            back.style.left = '';
+          }
+        }
       }
     };
-    document.addEventListener('scroll', () => evaluate(), { passive: true });
-    window.addEventListener('resize', () => { unstick(); evaluate(); });
+    const tick = () => { evaluate(); requestAnimationFrame(tick); };
+    requestAnimationFrame(tick);
+    window.addEventListener('resize', () => evaluate());
+    backDesktop.addEventListener('change', () => evaluate());
     evaluate();
   }
   /* ===== Post TOC (Chic tocbot) ===== */
