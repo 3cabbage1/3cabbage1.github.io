@@ -54,11 +54,11 @@
   });
 
   /* ===== Post TOC (Chic tocbot) ===== */
-  if (window.tocbot && document.querySelector('.contents')) {
+  if (window.tocbot && document.querySelector('.post-toc')) {
     const DEPTH_MAX = 6;
     let tocbotTimer;
     const tocbotDefaultConfig = {
-      tocSelector: '.contents .toc',
+      tocSelector: '.tocbot-list',
       contentSelector: '.post-content',
       headingSelector: 'h1, h2, h3, h4, h5',
       orderedList: false,
@@ -97,4 +97,3 @@
     bottomBtn && bottomBtn.addEventListener('click', () => window.scrollTo(0, document.body.scrollHeight));
   }
 })();
-
