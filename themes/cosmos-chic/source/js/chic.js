@@ -1,4 +1,4 @@
-/* Cosmos-Chic: theme switch & TOC scripts */
+/* Cosmos-Chic: theme switch, home mobile menu & TOC scripts */
 (() => {
   'use strict';
 
@@ -22,6 +22,35 @@
 
   switchDefault && switchDefault.addEventListener('change', () => {
     setTheme(switchDefault.checked ? 'dark' : 'light');
+  });
+
+  /* ===== Home mobile menu (Chic navbar-mobile) ===== */
+  const menuToggle = document.querySelector('.chic-header .menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  function closeMenu() {
+    if (!menuToggle) return;
+    menuToggle.classList.remove('active');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    mobileMenu && mobileMenu.classList.remove('active');
+  }
+
+  menuToggle && menuToggle.addEventListener('click', () => {
+    const open = !menuToggle.classList.contains('active');
+    menuToggle.classList.toggle('active', open);
+    menuToggle.setAttribute('aria-expanded', String(open));
+    mobileMenu && mobileMenu.classList.toggle('active', open);
+  });
+  mobileMenu && mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => closeMenu()));
+  document.addEventListener('click', event => {
+    if (menuToggle && !event.target.closest('.navbar-mobile')) closeMenu();
+  });
+  matchMedia('(min-width: 769px)').addEventListener('change', () => closeMenu());
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && menuToggle?.classList.contains('active')) {
+      closeMenu();
+      menuToggle.focus();
+    }
   });
 
   /* ===== Post TOC (Chic tocbot) ===== */

@@ -1,10 +1,10 @@
-<div class="container">
-    <div class="post-wrap tags">
-        <h2 class="post-title">-&nbsp;Tag Cloud&nbsp;-</h2>
-        <div class="tag-cloud-tags">
-            <% site.tags.forEach(item=>{ %>
-                <a href="<%- url_for(item.path) %>"><%- item.name %><small>(<%- item.length %>)</small></a>
-            <% }) %>
-        </div>
+<section class="taxonomy-page shell">
+  <header class="about-heading"><h1>Tag Cloud</h1></header>
+  <div class="post-wrap tags">
+    <div class="tag-cloud-tags">
+      <% site.tags.forEach(item=>{ %>
+        <a href="<%- url_for(item.path) %>"><%- item.name %><small>(<%- item.length %>)</small></a>
+      <% }) %>
     </div>
-</div>
+  </div>
+</section>

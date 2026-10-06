@@ -1,14 +1,12 @@
 /* ============================================================
    Cosmos-Chic integration stylesheet
    Structure/typography from hexo-theme-Chic,
-   colors / fonts / visual language from hexo-theme-cosmos.
-   Loaded after style.css and cosmos_css() so it can override.
+   colors / visual language from hexo-theme-cosmos.
+   Home header: Chic navbar. Other pages: cosmos site-header.
    ============================================================ */
 @import url("tocbot.css");
 
-/* ===== Chic Chinese webfont: FZLanTingHei (lanting) =====
-   English glyphs render with cosmos fonts (Hanken Grotesk / Petrona)
-   listed earlier in the stacks; Chinese glyphs fall through to lanting. */
+/* ===== Chic Chinese webfont: FZLanTingHei (lanting) ===== */
 @font-face {
   font-family: "lanting";
   src: url("../fonts/lanting/lanting.eot");
@@ -26,17 +24,35 @@ body { min-height: 100svh; }
 .wrapper { display: flex; flex-direction: column; min-height: 100vh; }
 .wrapper > main { flex: 1 1 auto; width: 100%; }
 
-/* ===== Header: cosmos layout (.site-header/.site-nav in style.css),
-       Chic elements kept (navname / menu-item / toggleBtn) ===== */
-.header-actions .switch_default[type=checkbox] { display: none; }
-.header-actions .switch_default + label { cursor: pointer; text-indent: -9999px; background: #e5e5e5; display: inline-block; height: 14px; width: 30px; border-radius: 8px; position: relative; flex: 0 0 auto; }
-.header-actions .switch_default + label:after { content: ''; position: absolute; top: 1px; left: 1px; width: 12px; height: 12px; background: #fff; border-radius: 6px; border: 1px solid lightgray; box-sizing: border-box; transition: left 300ms var(--ease), transform 300ms var(--ease); }
-.header-actions .switch_default + label:active { transition: 0.3s; }
-.header-actions .switch_default:checked + label { background: #4699a5; }
-.header-actions .switch_default:checked + label:after { left: calc(100% - 1px); transform: translateX(-100%); }
+/* ===== Home header: Chic navbar (cosmos palette) ===== */
+.chic-header { user-select: none; }
+.navbar { min-height: 4.5rem; width: 100%; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.navbar .container { width: min(var(--container), calc(100% - 48px)); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+.navbar-header a { font-size: 20px; font-weight: 600; letter-spacing: -.02em; color: var(--ink); transition: color 180ms; white-space: nowrap; }
+.navbar-header a:hover { color: var(--accent); }
+.navbar .menu { display: flex; align-items: center; }
+.navbar .menu .menu-item { padding: 0 12px; font-size: 14px; color: var(--muted); min-height: 66px; display: flex; align-items: center; position: relative; transition: color 180ms; white-space: nowrap; }
+.navbar .menu .menu-item::after { position: absolute; bottom: 8px; left: 12px; right: 12px; height: 2px; background: var(--accent); content: ""; transform: scaleX(0); transform-origin: left; transition: transform 220ms var(--ease); }
+.navbar .menu .menu-item:hover { color: var(--ink); }
+.navbar .menu .menu-item:hover::after,
+.navbar .menu .menu-item.active::after,
+.navbar .menu .menu-item[aria-current]::after { transform: scaleX(1); }
+.navbar .menu .menu-item.active,
+.navbar .menu .menu-item[aria-current] { color: var(--accent); }
+.navbar .menu label.toggleBtn { margin-left: 15px; flex: 0 0 auto; }
+.navbar-mobile { display: none; }
+
+/* ===== Light/dark switch — exact Chic element (shared by both headers) ===== */
+.switch_default[type=checkbox] { display: none; }
+.switch_default + label { cursor: pointer; text-indent: -9999px; background: #e5e5e5; display: inline-block; height: 14px; width: 30px; border-radius: 8px; position: relative; flex: 0 0 auto; }
+.switch_default + label:after { content: ''; position: absolute; top: 1px; left: 1px; width: 12px; height: 12px; background: #fff; border-radius: 6px; border: 1px solid lightgray; box-sizing: border-box; transition: left 300ms var(--ease), transform 300ms var(--ease); }
+.switch_default + label:active { transition: 0.3s; }
+.switch_default:checked + label { background: #4699a5; }
+.switch_default:checked + label:after { left: calc(100% - 1px); transform: translateX(-100%); }
 
 /* ===== Dark theme — exact Chic dark palette ===== */
 body.dark-theme {
+  --accent: #ffffff;  /* dark mode: all red accents become the header-active bright white */
   --paper: #292a2d;         /* $dark-background-color */
   --paper-low: #3e3e3e;     /* $dark-post-blockquote-background-color */
   --ink: #a9a9b3;           /* $dark-font-color */
@@ -46,11 +62,16 @@ body.dark-theme {
 body.dark-theme .prose blockquote { background: #3e3e3e; border-left: 2px solid #dcdcdc; }
 body.dark-theme .prose th { background: #626262; }        /* $dark-post-table-background-color */
 body.dark-theme .prose :not(pre) > code { background: #787575; color: #fffe28; }
+body.dark-theme .prose.post-content blockquote { background-color: #3e3e3e; border-left: 2px solid #dcdcdc; }
 body.dark-theme .site-nav a:hover { color: #fff; }
 body.dark-theme .site-nav a[aria-current] { color: #fff; }
 body.dark-theme .brand:hover { color: #fff; }
 body.dark-theme .site-nav a:hover::after,
 body.dark-theme .site-nav a[aria-current]::after { background: #fff; }
+body.dark-theme .navbar .menu .menu-item:hover { color: #fff; }
+body.dark-theme .navbar .menu .menu-item.active,
+body.dark-theme .navbar .menu .menu-item[aria-current] { color: #fff; }
+body.dark-theme .navbar-header a:hover { color: #fff; }
 
 /* ===== Home hero: Chic description & links ===== */
 .hero-copy .description { max-width: 52ch; margin: 30px 0 0 68px; color: var(--muted); font-size: 18px; line-height: 1.75; }
@@ -67,7 +88,6 @@ body.dark-theme .site-nav a[aria-current]::after { background: #fff; }
 
 /* ===== Post list (Chic archives: year + title + date) ===== */
 .post-wrap { position: relative; width: 100%; max-width: 780px; margin: 0 auto; padding-top: 2rem; }
-.post-wrap .post-title { font-size: 2em; line-height: 1.5em; }
 .post-wrap.archive { position: relative; width: 100%; max-width: 780px; margin: 0 auto; padding: 2rem 0 1rem; }
 .post-wrap.archive .archive-year { font: 600 30px/1.2 var(--sans); letter-spacing: -.02em; margin: 2.2rem 0 .4rem; color: var(--ink); }
 .post-wrap.archive .archive-year:first-child { margin-top: .6rem; }
@@ -79,7 +99,8 @@ body.dark-theme .site-nav a[aria-current]::after { background: #fff; }
 .archive-item-date { float: right; text-align: right; color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; }
 .post-wrap.archive .archive-item-date { flex: 0 0 auto; float: none; }
 
-/* ===== Category page — exact Chic structure (cosmos palette) ===== */
+/* ===== Category / tag pages: cosmos about-heading titles, Chic content ===== */
+.about-heading + .post-wrap { padding-top: 1rem; }
 .post-wrap .categories-card { margin: 0 auto; margin-top: 1em; display: flex; align-items: center; justify-content: space-between; flex-direction: row; flex-wrap: wrap; padding: 0 2.5em; line-height: 1.6em; }
 .post-wrap .categories-card .card-item { font-size: 14px; text-align: left; width: 45%; display: flex; align-items: flex-start; margin-top: 2em; min-height: 16em; padding: 0 2%; position: relative; }
 .post-wrap .categories-card .card-item .categories { overflow: hidden; width: 100%; }
@@ -88,15 +109,13 @@ body.dark-theme .site-nav a[aria-current]::after { background: #fff; }
 .post-wrap .categories-card .categories > a:hover h3 { color: var(--accent); }
 .more-post-link { display: inline-block; font-size: 13px; color: var(--muted); padding: 4px 0; }
 .more-post-link:hover { color: var(--accent); }
-
-/* ===== Tag page — exact Chic structure (cosmos palette) ===== */
-.tag-cloud-tags { margin: 10px 0; padding-top: 2em; }
+.tag-cloud-tags { margin: 10px 0; padding-top: 1em; }
 .tag-cloud-tags a { display: inline-block; position: relative; margin: 5px 10px; word-wrap: break-word; transition-duration: .3s; transition-property: transform, color; transition-timing-function: ease-out; color: var(--ink); font-size: 17px; }
 .tag-cloud-tags a:active, .tag-cloud-tags a:focus, .tag-cloud-tags a:hover { color: var(--accent); transform: scale(1.1); }
 .tag-cloud-tags small { margin: 0 .3em; color: var(--muted); font-size: .68em; }
 
 /* ===== Post detail page (Chic structure) ===== */
-.article-page .article-heading { padding-left: 0; }
+.article-page .article-heading { padding-left: 0; max-width: 780px; margin: 0 auto; }
 .article-page .article-layout { display: block; padding-top: 2rem; }
 .article-page .article-body { max-width: 780px; margin: 0 auto; }
 .post-meta { display: flex; gap: 8px 26px; flex-wrap: wrap; align-items: center; font-size: 14px; line-height: 1.9; color: var(--muted); margin-top: 26px; }
@@ -106,9 +125,8 @@ body.dark-theme .site-nav a[aria-current]::after { background: #fff; }
 .post-content { padding-top: 2rem; }
 
 /* ===== Post content: exact Chic typography (post_content/post_code styl),
-       colors mapped to the cosmos palette; .prose.post-content compound
-       selectors out-specify every cosmos .prose rule ===== */
-.prose.post-content { font-size: 11pt; line-height: 2em; text-align: justify; max-width: none; }
+       Chic font & size; colors mapped to the cosmos palette ===== */
+.prose.post-content { font-family: 'lanting', 'Lantinghei SC', 'PingFang SC', 'Microsoft Jhenghei', 'Segoe UI', 'Microsoft YaHei', Arial, sans-serif; font-size: 11pt; line-height: 2em; text-align: justify; max-width: none; }
 .prose.post-content p { font-size: 1em; margin: 1em 0; }
 .prose.post-content > p:first-child { font-size: 1em; }
 .prose.post-content h1, .prose.post-content h2, .prose.post-content h3,
@@ -152,7 +170,7 @@ body.dark-theme .site-nav a[aria-current]::after { background: #fff; }
 .prose.post-content thead { background: var(--paper-low); }
 .prose.post-content th, .prose.post-content td { padding: 5px 15px; border: .5px solid var(--rule); }
 .prose.post-content img { display: block; max-width: 100%; height: auto; margin: 0 auto; overflow: hidden; }
-.prose.post-content blockquote { font-size: 1rem; display: block; margin: 1em 0; padding: 1em 1.2em 1em 1.2em; position: relative; color: var(--ink); background-color: rgba(166, 64, 44, 0.08); border-left: 2px solid var(--accent); font-family: inherit; font-style: normal; line-height: 2em; }
+.prose.post-content blockquote { font-size: 1rem; display: block; margin: 1em 0; padding: 1em 1.2em 1em 1.2em; position: relative; color: var(--muted); background-color: rgba(166, 64, 44, 0.08); border-left: 2px solid var(--accent); font-family: inherit; font-style: normal; line-height: 2em; }
 .prose.post-content blockquote p { margin: 0; }
 .prose.post-content blockquote footer strong { margin-right: 0.5em; }
 
@@ -211,7 +229,22 @@ body.dark-theme .site-nav a[aria-current]::after { background: #fff; }
 @media (max-width: 980px) {
   .hero-copy .description, .hero-copy .hero-links, .hero-copy .links { margin-left: 44px; }
 }
-@media (max-width: 720px) {
+@media (max-width: 768px) {
+  /* Home: Chic mobile navbar */
+  .navbar { display: none; }
+  .navbar-mobile { display: block; position: sticky; top: 0; z-index: 100; background: var(--paper); border-bottom: 1px solid var(--rule); }
+  .navbar-mobile .container { padding: 0; width: 100%; }
+  .navbar-mobile .navbar-header { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 0 24px; box-sizing: border-box; min-height: 64px; }
+  .navbar-mobile .navbar-header > div:first-child a { font-size: 18px; font-weight: 600; color: var(--ink); }
+  .navbar-mobile .menu-toggle { display: flex; cursor: pointer; user-select: none; background: none; border: 0; color: var(--ink); padding: 8px; }
+  .navbar-mobile .menu-toggle .close-icon { display: none; }
+  .navbar-mobile .menu-toggle.active .menu-icon { display: none; }
+  .navbar-mobile .menu-toggle.active .close-icon { display: block; }
+  .navbar-mobile .menu { display: none; text-align: center; border-top: 1px solid var(--rule); padding: 8px 0 16px; }
+  .navbar-mobile .menu.active { display: block; }
+  .navbar-mobile .menu a { display: block; line-height: 2.5; padding: 8px 24px; min-height: 44px; }
+  .navbar-mobile .menu a.active, .navbar-mobile .menu a[aria-current] { color: var(--accent); }
+
   .shell, .hero-stage { width: calc(100% - 48px); }
   .hero-copy .description, .hero-copy .hero-links, .hero-copy .links { margin-left: 28px; }
   .hero-copy .description { font-size: 16px; }
@@ -245,5 +278,6 @@ body.dark-theme .site-nav a[aria-current]::after { background: #fff; }
 
 /* ===== Print ===== */
 @media print {
-  .site-header, .footer, .post-toc, .reading-progress, .article-back { display: none !important; }
+  .chic-header, .site-header, .footer, .post-toc, .reading-progress, .article-back { display: none !important; }
 }
+

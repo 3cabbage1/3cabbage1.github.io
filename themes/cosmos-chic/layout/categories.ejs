@@ -1,30 +1,29 @@
-<div class="container">
-    <div class="post-wrap categories">
-        <h2 class="post-title">-&nbsp;Categories&nbsp;-</h2>
-        <div class="categories-card">
-            <% site.categories.forEach(category_item=>{ %>
-                <div class="card-item">
-                    <div class="categories">
-                        <a href="<%- url_for(category_item.path) %>">
-                            <h3>
-                                <i class="iconfont icon-category" style="padding-right:3px"></i>
-                                <%- category_item.name %>
-                            </h3>
-                        </a>
-                        <% category_item.posts.forEach((post_item, index = 0)=>{ %>
-                            <% if(++index <= 5){ %>
-                                <article class="archive-item">
-                                    <a class="archive-item-link"
-                                       href="<%- url_for(post_item.path) %>"><%- post_item.title %></a>
-                                </article>
-                            <% } %>
-                        <% }) %>
-                        <% if(category_item.posts.length > 5){ %>
-                            <a class="more-post-link" href="<%- url_for(category_item.path) %>">More >></a>
-                        <% } %>
-                    </div>
-                </div>
+<section class="taxonomy-page shell">
+  <header class="about-heading"><h1>Categories</h1></header>
+  <div class="post-wrap categories">
+    <div class="categories-card">
+      <% site.categories.forEach(category_item=>{ %>
+        <div class="card-item">
+          <div class="categories">
+            <a href="<%- url_for(category_item.path) %>">
+              <h3>
+                <i class="iconfont icon-category" style="padding-right:3px"></i>
+                <%- category_item.name %>
+              </h3>
+            </a>
+            <% category_item.posts.forEach((post_item, index = 0)=>{ %>
+              <% if(++index <= 5){ %>
+                <article class="archive-item">
+                  <a class="archive-item-link" href="<%- url_for(post_item.path) %>"><%- post_item.title %></a>
+                </article>
+              <% } %>
             <% }) %>
+            <% if(category_item.posts.length > 5){ %>
+              <a class="more-post-link" href="<%- url_for(category_item.path) %>">More >></a>
+            <% } %>
+          </div>
         </div>
+      <% }) %>
     </div>
-</div>
+  </div>
+</section>
