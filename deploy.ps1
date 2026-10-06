@@ -1,8 +1,8 @@
-# Deploy: build the site and push public/ to main, and source/ to the source branch.
+# Deploy: build the site and push public/ to main, and the source to the source branch.
 # Usage: npm run deploy
 $ErrorActionPreference = 'Stop'
 $repo = 'https://github.com/3cabbage1/3cabbage1.github.io.git'
-$root = Split-Path -Parent $PSScriptRoot
+$root = $PSScriptRoot
 
 Push-Location $root
 try {
@@ -12,25 +12,21 @@ try {
 
   # --- push source ---
   if (-not (Test-Path (Join-Path $root '.git'))) {
-    git init | Out-Host
-    git checkout -b source | Out-Host
+    git init -b source | Out-Host
     git remote add origin $repo
   }
   git add -A
-  git commit -m "Update blog source" | Out-Host
+  git commit -m 'Update blog source' | Out-Host
   git push -u origin source | Out-Host
 
-  # --- push built site to main ---
+  # --- push built site to main (public/ is rebuilt from scratch, so force-push) ---
   Push-Location (Join-Path $root 'public')
   try {
-    if (-not (Test-Path (Join-Path $root 'public\.git'))) {
-      git init | Out-Host
-      git checkout -b main | Out-Host
-      git remote add origin $repo
-    }
+    git init -b main | Out-Host
+    git remote add origin $repo 2>$null
     git add -A
     git commit -m 'Deploy site' | Out-Host
-    git push -u origin main | Out-Host
+    git push -f origin main | Out-Host
   } finally { Pop-Location }
 } finally { Pop-Location }
 

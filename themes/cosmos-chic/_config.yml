@@ -17,8 +17,8 @@ home:
   # Chic home .description element (Markdown supported)
   description: 'Write a one-line introduction here, **Markdown** supported.'
   image:
-    src: ''
-    alt: ''
+    src: /image/abstract-star-sea.png
+    alt: Abstract star sea illustration
     width: 1254
     height: 1254
   links:
@@ -45,7 +45,7 @@ chic:
     # Zhihu: https://www.zhihu.com/people/yourname
     # Weibo: https://weibo.com/yourname
     # Bilibili: https://space.bilibili.com/yourid
-    RSS: /atom.xml
+    Email: mailto:yourname@example.com
   # Post page
   post_toc_enable: true
   post_copyright_enable: true
@@ -68,11 +68,11 @@ about:
   header: true
   header_html: ''
   sidebar_html: ''
-  title: ''
-  aside: ''
+  title: About
+  aside: A little background.
   introduction: ''
   content: ''
-  file: ''
+  file: _content/about.md
   profile:
     enabled: true
     name: ''
@@ -88,8 +88,8 @@ about:
 listing:
   title: ''
   title_period: true
-  categories: false
-  counts: false
+  categories: true
+  counts: true
   excerpts: false
   date: true
   signoff: ''
@@ -180,5 +180,6 @@ custom:
   after_content: ''
   after_about: ''
   after_post: ''
+
 
 

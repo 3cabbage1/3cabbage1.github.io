@@ -5,6 +5,7 @@
    Loaded after style.css and cosmos_css() so it can override.
    ============================================================ */
 @import url("tocbot.css");
+
 /* ===== Chic Chinese webfont: FZLanTingHei (lanting) =====
    English glyphs render with cosmos fonts (Hanken Grotesk / Petrona)
    listed earlier in the stacks; Chinese glyphs fall through to lanting. */
@@ -25,14 +26,22 @@ body { min-height: 100svh; }
 .wrapper { display: flex; flex-direction: column; min-height: 100vh; }
 .wrapper > main { flex: 1 1 auto; width: 100%; }
 
-/* ===== Dark theme (Chic switch, cosmos-warm dark palette) ===== */
+/* ===== Dark theme — exact Chic dark palette ===== */
 body.dark-theme {
-  --paper: #262119;
-  --paper-low: #33291f;
-  --ink: #ece2d0;
-  --muted: #a3937d;
-  --rule: #4a3f31;
+  --paper: #292a2d;         /* $dark-background-color */
+  --paper-low: #3e3e3e;     /* $dark-post-blockquote-background-color */
+  --ink: #a9a9b3;           /* $dark-font-color */
+  --muted: #87878d;         /* $dark-font-secondary-color */
+  --rule: #909196;          /* $dark-border-color */
 }
+body.dark-theme .prose blockquote { background: #3e3e3e; border-left: 2px solid #dcdcdc; }
+body.dark-theme .prose th { background: #626262; }        /* $dark-post-table-background-color */
+body.dark-theme .prose :not(pre) > code { background: #787575; color: #fffe28; }
+body.dark-theme .navbar .menu .menu-item.active,
+body.dark-theme .navbar .menu .menu-item[aria-current] { color: #fff; }  /* $dark-navbar-active-color */
+body.dark-theme .navbar .menu .menu-item:hover,
+body.dark-theme .navbar-header a:hover { color: #fff; }   /* $dark-global-link-hover-color */
+body.dark-theme .switch_default:checked + label { background: #4699a5; }
 
 /* ===== Chic header (cosmos palette) ===== */
 .chic-header { user-select: none; view-transition-name: site-header; }
@@ -50,13 +59,15 @@ body.dark-theme {
 .navbar .menu .menu-item.active,
 .navbar .menu .menu-item[aria-current] { color: var(--accent); }
 
-/* Light / dark switch (Chic checkbox, cosmos palette) */
+/* Light / dark switch — exact Chic element */
 .navbar .menu label.toggleBtn { margin-left: 15px; flex: 0 0 auto; }
 .switch_default[type=checkbox] { display: none; }
-.switch_default + label { cursor: pointer; text-indent: -9999px; background: var(--paper-low); display: inline-block; height: 14px; width: 30px; border-radius: 8px; position: relative; border: 1px solid var(--rule); box-sizing: content-box; }
-.switch_default + label:after { content: ''; position: absolute; top: 1px; left: 1px; width: 12px; height: 12px; background: var(--paper); border-radius: 6px; border: 1px solid var(--rule); box-sizing: border-box; transition: left 200ms var(--ease), transform 200ms var(--ease); }
-.switch_default:checked + label { background: var(--accent); }
-.switch_default:checked + label:after { left: calc(100% - 1px); transform: translateX(-100%); background: var(--paper); }
+.switch_default + label { cursor: pointer; text-indent: -9999px; background: #e5e5e5; display: inline-block; height: 14px; width: 30px; border-radius: 8px; position: relative; }
+.switch_default + label:after { content: ''; position: absolute; top: 1px; left: 1px; width: 12px; height: 12px; background: #fff; border-radius: 6px; border: 1px solid lightgray; box-sizing: border-box; transition: left 300ms var(--ease), transform 300ms var(--ease); }
+.switch_default + label:active { transition: 0.3s; }
+.switch_default:checked + label { background: #4699a5; }
+.switch_default:checked + label:after { left: calc(100% - 1px); transform: translateX(-100%); }
+label:active:after { width: 26px; }
 
 /* Mobile header (Chic navbar-mobile) */
 .navbar-mobile { display: none; }
@@ -72,31 +83,35 @@ body.dark-theme {
 .hero-copy .links .link-item { display: inline-flex; align-items: center; gap: 7px; padding: 10px 7px; font-size: 15px; color: var(--muted); transition: color 180ms, transform 300ms var(--ease); }
 .hero-copy .links .link-item:hover { color: var(--accent); transform: translateY(-3px); }
 .hero-copy .links .iconfont { font-size: 1.45em; line-height: 1; }
+.hero-copy .links svg.profile-contact-icon { width: 1.45em; height: 1.45em; color: currentColor; }
 
 /* ===== Post list (Chic archives: year + title + date) ===== */
-.index-page .post-wrap.archive { position: relative; width: 100%; max-width: 780px; margin: 0 auto; padding: 2rem 0 1rem; }
+.post-wrap { position: relative; width: 100%; max-width: 780px; margin: 0 auto; padding-top: 2rem; }
+.post-wrap .post-title { font-size: 2em; line-height: 1.5em; }
+.post-wrap.archive { position: relative; width: 100%; max-width: 780px; margin: 0 auto; padding: 2rem 0 1rem; }
 .post-wrap.archive .archive-year { font: 600 30px/1.2 var(--sans); letter-spacing: -.02em; margin: 2.2rem 0 .4rem; color: var(--ink); }
 .post-wrap.archive .archive-year:first-child { margin-top: .6rem; }
-.post-wrap.archive .archive-item { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-left: 2rem; line-height: 2.4; min-width: 0; }
-.archive-item-link { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink); transition: color 200ms; }
+.post-wrap .archive-item { margin-left: 2rem; line-height: 2.4; }
+.post-wrap.archive .archive-item { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; min-width: 0; }
+.archive-item-link { display: inline-block; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink); transition: color 200ms; }
+.post-wrap.archive .archive-item-link { flex: 1 1 auto; min-width: 0; }
 .archive-item-link:hover { color: var(--accent); background-color: transparent; }
-.archive-item-date { flex: 0 0 auto; text-align: right; color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; }
+.archive-item-date { float: right; text-align: right; color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; }
+.post-wrap.archive .archive-item-date { flex: 0 0 auto; float: none; }
 
-/* ===== Category / tag pages (Chic structure, cosmos palette) ===== */
-.taxonomy-page .taxonomy-chic-title { text-align: center; font: 500 clamp(34px, 4vw, 48px)/1.4 var(--sans); letter-spacing: -.02em; padding: 44px 0 10px; }
-.taxonomy-page .taxonomy-chic-title .title-dash { color: var(--accent); }
-.taxonomy-page .taxonomy-count-inline { color: var(--muted); font-size: .7em; }
-.categories-card { margin: 0 auto; display: flex; align-items: flex-start; justify-content: space-between; flex-direction: row; flex-wrap: wrap; padding: 0 2.5em; line-height: 1.6em; }
-.card-item { font-size: 14px; text-align: left; width: 45%; display: flex; align-items: flex-start; margin-top: 2em; min-height: 12em; padding: 0 2%; position: relative; }
-.card-item .categories { overflow: hidden; width: 100%; }
-.card-item h3 { font-size: 19px; font-weight: 600; letter-spacing: -.015em; }
-.card-item h3 .iconfont { font-size: 1.1em; color: var(--accent); }
-.card-item .categories > a:hover h3 { color: var(--accent); }
-.card-item .archive-item { margin-left: 1rem; line-height: 2; }
-.more-post-link { display: inline-block; margin-left: 1rem; font-size: 13px; color: var(--muted); padding: 4px 0; }
+/* ===== Category page — exact Chic structure (cosmos palette) ===== */
+.post-wrap .categories-card { margin: 0 auto; margin-top: 1em; display: flex; align-items: center; justify-content: space-between; flex-direction: row; flex-wrap: wrap; padding: 0 2.5em; line-height: 1.6em; }
+.post-wrap .categories-card .card-item { font-size: 14px; text-align: left; width: 45%; display: flex; align-items: flex-start; margin-top: 2em; min-height: 16em; padding: 0 2%; position: relative; }
+.post-wrap .categories-card .card-item .categories { overflow: hidden; width: 100%; }
+.post-wrap .categories-card h3 { font-size: 19px; font-weight: 600; letter-spacing: -.015em; }
+.post-wrap .categories-card h3 .iconfont { font-size: 1.1em; color: var(--accent); }
+.post-wrap .categories-card .categories > a:hover h3 { color: var(--accent); }
+.more-post-link { display: inline-block; font-size: 13px; color: var(--muted); padding: 4px 0; }
 .more-post-link:hover { color: var(--accent); }
-.tag-cloud-tags { margin: 10px 0; padding: 2.5em 0 1em; text-align: center; }
-.tag-cloud-tags a { display: inline-block; position: relative; margin: 8px 12px; word-wrap: break-word; color: var(--ink); font-size: 17px; transition-duration: .3s; transition-property: transform, color; transition-timing-function: ease-out; }
+
+/* ===== Tag page — exact Chic structure (cosmos palette) ===== */
+.tag-cloud-tags { margin: 10px 0; padding-top: 2em; }
+.tag-cloud-tags a { display: inline-block; position: relative; margin: 5px 10px; word-wrap: break-word; transition-duration: .3s; transition-property: transform, color; transition-timing-function: ease-out; color: var(--ink); font-size: 17px; }
 .tag-cloud-tags a:active, .tag-cloud-tags a:focus, .tag-cloud-tags a:hover { color: var(--accent); transform: scale(1.1); }
 .tag-cloud-tags small { margin: 0 .3em; color: var(--muted); font-size: .68em; }
 
@@ -164,7 +179,6 @@ body.dark-theme {
 }
 @media (max-width: 980px) {
   .hero-copy .description, .hero-copy .hero-links, .hero-copy .links { margin-left: 44px; }
-  .card-item { width: 100%; min-height: 0; padding: 0; }
 }
 @media (max-width: 768px) {
   /* Chic mobile header */
@@ -193,7 +207,7 @@ body.dark-theme {
   .post-wrap.archive .archive-item { margin-left: 1rem; }
   .archive-item-link { white-space: normal; overflow-wrap: anywhere; }
   .archive-item-date { font-size: 13px; }
-  .categories-card { padding: 0 1em; }
+  .post-wrap .categories-card { padding: 0 1em; }
 
   .post-nav { flex-direction: column; gap: 12px; }
   .post-nav a { max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
@@ -201,6 +215,11 @@ body.dark-theme {
   .post-tags { flex-direction: column; }
 
   .footer { line-height: 1.8; padding: 1.2rem 24px; }
+}
+@media (max-width: 479px) {
+  /* Chic media 479: categories collapse */
+  .post-wrap .categories-card { padding: 0 1em; }
+  .post-wrap .categories-card .card-item { width: 100%; min-height: 0; padding: 0; }
 }
 @media (max-width: 480px) {
   .archive-item-date { display: none; }

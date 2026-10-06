@@ -6,7 +6,7 @@
     "build": "hexo generate",
     "clean": "hexo clean",
     "server": "hexo server",
-    "deploy": "powershell -ExecutionPolicy Bypass -File scripts/deploy.ps1"
+    "deploy": "powershell -ExecutionPolicy Bypass -File deploy.ps1"
   },
   "hexo": {
     "version": "8.1.2"
@@ -22,3 +22,4 @@
     "hexo-server": "^3.0.0"
   }
 }
+

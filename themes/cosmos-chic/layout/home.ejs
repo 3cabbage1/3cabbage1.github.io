@@ -20,7 +20,11 @@ const links = chic.links || {};
                 <%= key %>
               <% } %>
               <% if (chic.links_icon_enable) { %>
-                <i class="iconfont icon-<%- key.toLowerCase() %>"></i>
+                <% if (key.toLowerCase() === 'email' || key.toLowerCase() === 'mail') { %>
+                  <%- profile_icon('email') %>
+                <% } else { %>
+                  <i class="iconfont icon-<%- key.toLowerCase() %>"></i>
+                <% } %>
               <% } %>
             </a>
           <% } %>
