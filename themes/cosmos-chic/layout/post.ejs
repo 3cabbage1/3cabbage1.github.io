@@ -1,0 +1,89 @@
+<%
+const p = cosmos_post();
+const chic = cosmos().chic || {};
+const photos = post_photos(page);
+const hasToc = chic.post_toc_enable !== false && p.toc && toc(page.content).length !== 0;
+%>
+<% if (p.progress) { %><div class="reading-progress" aria-hidden="true"><span></span></div><% } %>
+<article class="article-page shell">
+  <header class="article-heading">
+    <% if (p.back_link) { %><a class="link article-back" href="<%= cosmos_route('blog') %>"><%- icon('back') %><%= cx('back_blog') %></a><% } %>
+    <h1 class="post-title" data-entry="<%= entry_key(page) %>"><%= entry_title(page) %></h1>
+    <% if (p.description && page.description) { %><p class="article-deck"><%= page.description %></p><% } %>
+    <div class="post-meta">
+      <% if (p.author && (page.author || config.author)) { %>
+      <span class="post-author">Author: <a itemprop="author" rel="author" href="<%= cosmos_route('home') %>"><%= page.author || config.author %></a></span>
+      <% } %>
+      <% if (p.date && page.date) { %>
+      <span class="post-time">Date: <a href="<%= url_for(page.path) %>"><%= date(page.date, config.date_format) %></a></span>
+      <% } %>
+      <% if (p.updated && page.updated) { %>
+      <span class="post-updated">Updated: <time datetime="<%= date_xml(page.updated) %>"><%= date(page.updated, config.date_format) %></time></span>
+      <% } %>
+      <% if (p.categories && page.categories.length) { %>
+      <span class="post-category">
+        Category:
+        <% page.categories.forEach(item => { %><a href="<%= url_for(item.path) %>"><%= item.name %></a><% }) %>
+      </span>
+      <% } %>
+    </div>
+  </header>
+  <div class="article-layout">
+    <% if (hasToc) { %>
+    <aside class="post-toc" aria-label="<%= cx('contents') %>">
+      <div class="tocbot-list"></div>
+      <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand">Expand all</a>
+        <a class="tocbot-toc-top">Back to top</a>
+        <a class="tocbot-toc-bottom">Go to bottom</a>
+      </div>
+    </aside>
+    <% } %>
+    <div class="article-body">
+      <div class="prose post-content" data-reading-content>
+        <% if (photos.length) { %><div class="post-gallery">
+          <% for (const photo of photos) { %><img src="<%= photo.src %>" alt="<%= photo.alt %>" loading="lazy" decoding="async"><% } %>
+        </div><% } %>
+        <%- page.content %>
+      </div>
+      <% if (chic.post_copyright_enable !== false) { %>
+      <section class="post-copyright">
+        <% if (chic.post_copyright_author_enable !== false) { %>
+        <p class="copyright-item"><span>Author:</span><span><%= config.author %></span></p>
+        <% } %>
+        <% if (chic.post_copyright_permalink_enable !== false) { %>
+        <p class="copyright-item"><span>Permalink:</span><span><a href="<%= page.permalink %>"><%= page.permalink %></a></span></p>
+        <% } %>
+        <% if (chic.post_copyright_license_enable !== false) { %>
+        <p class="copyright-item"><span>License:</span><span><%- chic.post_copyright_license_text %></span></p>
+        <% } %>
+        <% if (chic.post_copyright_slogan_enable) { %>
+        <p class="copyright-item"><span>Slogan:</span><span><%- chic.post_copyright_slogan_text %></span></p>
+        <% } %>
+      </section>
+      <% } %>
+      <% if (p.tags) { %>
+      <section class="post-tags">
+        <div>
+          <span>Tag(s):</span>
+          <span class="tag">
+            <% if (page.tags.length) { %><% page.tags.forEach(item => { %><a href="<%= url_for(item.path) %>"># <%= item.name %></a><% }) %><% } %>
+          </span>
+        </div>
+        <div>
+          <a href="javascript:window.history.back();">back</a>
+          <span>· </span>
+          <a href="<%= cosmos_route('home') %>">home</a>
+        </div>
+      </section>
+      <% } %>
+      <% if (p.comments) { %><%- cosmos().custom.after_post %><% } %>
+      <% if (p.navigation && (page.prev || page.next)) { %>
+      <section class="post-nav" aria-label="<%= cx('adjacent') %>">
+        <% if (page.prev) { %><a class="prev" rel="prev" href="<%= url_for(page.prev.path) %>"><%= entry_title(page.prev) %></a><% } %>
+        <% if (page.next) { %><a class="next" rel="next" href="<%= url_for(page.next.path) %>"><%= entry_title(page.next) %></a><% } %>
+      </section>
+      <% } %>
+    </div>
+  </div>
+</article>

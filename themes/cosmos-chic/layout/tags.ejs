@@ -1,0 +1,11 @@
+<section class="taxonomy-page shell">
+  <div class="post-wrap tags">
+    <h2 class="post-title taxonomy-chic-title"><span class="title-dash">-</span>&nbsp;Tag Cloud&nbsp;<span class="title-dash">-</span></h2>
+    <div class="tag-cloud-tags">
+      <% site.tags.sort('name').forEach(item => { %>
+        <a href="<%= url_for(item.path) %>"><%= item.name %><small>(<%= item.length %>)</small></a>
+      <% }) %>
+    </div>
+    <% if (!site.tags.length) { %><p class="empty-message"><%= cx('empty') %></p><% } %>
+  </div>
+</section>

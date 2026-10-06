@@ -1,0 +1,184 @@
+# Cosmos-Chic 主题配置
+# Base style: hexo-theme-cosmos (warm paper palette)
+# Structure: hexo-theme-Chic (header / footer / post / category / tag pages)
+
+brand:
+  title: ''      # Falls back to the site title.
+  aside: ''
+  favicon: ''
+
+home:
+  mode: cover    # cover | blog
+  header: true   # Chic header on the home page too.
+  footer: true   # Chic footer on the home page too.
+  # hero-title: <span>姓</span> <em>名</em>
+  title: Your    # => <span>Your</span>
+  aside: Name    # => <em>Name</em>
+  # Chic home .description element (Markdown supported)
+  description: 'Write a one-line introduction here, **Markdown** supported.'
+  image:
+    src: ''
+    alt: ''
+    width: 1254
+    height: 1254
+  links:
+    - { route: blog, label: '', icon: arrow }
+    - { route: about, label: '', icon: diagonal }
+
+routes:
+  blog: blog
+  about: about
+
+# Chic header navigation (label: path)
+chic:
+  navname: Your Name
+  nav:
+    Posts: /blog/
+    Categories: /category/
+    Tags: /tag/
+    About: /about/
+  # Chic home .links social links (key lowercased to match iconfont icons)
+  links_text_enable: false
+  links_icon_enable: true
+  links:
+    Github: https://github.com/yourname
+    # Zhihu: https://www.zhihu.com/people/yourname
+    # Weibo: https://weibo.com/yourname
+    # Bilibili: https://space.bilibili.com/yourid
+    RSS: /atom.xml
+  # Post page
+  post_toc_enable: true
+  post_copyright_enable: true
+  post_copyright_author_enable: true
+  post_copyright_permalink_enable: true
+  post_copyright_license_enable: true
+  post_copyright_license_text: 'Copyright (c) 2026 <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE'
+  post_copyright_slogan_enable: true
+  post_copyright_slogan_text: 'Do you believe in <strong>DESTINY</strong>?'
+
+pages:
+  about: true
+  categories: true
+  tags: true
+  not_found: true
+  custom: []
+
+# About page keeps the original cosmos design
+about:
+  header: true
+  header_html: ''
+  sidebar_html: ''
+  title: ''
+  aside: ''
+  introduction: ''
+  content: ''
+  file: ''
+  profile:
+    enabled: true
+    name: ''
+    avatar: ''
+    avatar_alt: ''
+    facts:
+      - { label: Based in, value: China }
+      - { label: Occupation, value: Student / Developer }
+    email: ''
+    contacts:
+      - { label: GitHub, url: 'https://github.com/yourname' }
+
+listing:
+  title: ''
+  title_period: true
+  categories: false
+  counts: false
+  excerpts: false
+  date: true
+  signoff: ''
+
+post:
+  back_link: true
+  description: true
+  author: true
+  date: true
+  updated: false
+  categories: true      # Chic post-category element
+  reading_time: false   # No "1 min read"
+  toc: true
+  toc_depth: 3
+  toc_numbers: false
+  reading_note: ''
+  progress: true
+  copy_code: true
+  tags: true
+  signoff: ''
+  navigation: true
+  comments: true
+
+search:
+  enabled: false
+
+footer:
+  enabled: true
+  since: '2026'
+  author: ''
+
+# cosmos warm paper palette
+style:
+  colors:
+    paper: '#f4eedf'
+    paper_low: '#eae1d0'
+    ink: '#342c24'
+    muted: '#6c6052'
+    accent: '#a6402c'
+    honey: '#eccc77'
+    rule: '#d4c7b1'
+  fonts:
+    sans: '"Hanken Grotesk", "lanting", "Lantinghei SC", "PingFang SC", "Microsoft Jhenghei", "Microsoft YaHei", sans-serif'
+    serif: 'Petrona, "lanting", "Lantinghei SC", "Songti SC", "Noto Serif CJK SC", Georgia, serif'
+    preload: true
+  layout:
+    max_width: 1280px
+    prose_width: none
+    profile_width: 270px
+    about_gap: 108px
+    toc_width: 230px
+    article_gap: 72px
+  typography:
+    body_size: 17px
+    body_mobile_size: 16px
+    body_line_height: 1.9
+    body_mobile_line_height: 1.85
+    quote_size: 21px
+    quote_mobile_size: 19px
+    quote_line_height: 1.65
+  hero:
+    title_size: 'clamp(72px, 7.5vw, 96px)'
+    title_mobile_size: 'clamp(54px, 15vw, 76px)'
+    title_small_size: 'clamp(48px, 15vw, 58px)'
+    aside_indent: 64px
+    image_width: 'min(68vw, 92svh, 980px)'
+  variables: {}
+
+motion:
+  enabled: true
+  page_transitions: true
+
+seo:
+  image: ''
+  twitter_card: summary_large_image
+  noindex: false
+  rss: ''
+
+labels: {}
+
+custom:
+  css: []
+  js: []
+  head: ''
+  body_start: ''
+  body_end: ''
+  before_content: ''
+  after_content: ''
+  after_about: ''
+  after_post: ''
+
+

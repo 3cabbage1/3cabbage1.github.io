@@ -1,0 +1,6 @@
+<% const c = cosmos(); const chic = c.chic || {}; const year = date(Date.now(),'YYYY'); const since = c.footer.since && String(c.footer.since) !== year ? c.footer.since + '-' : ''; const author = c.footer.author || config.author; %>
+<footer id="footer" class="footer">
+  <div class="copyright">
+    <span>© <%= since %><%= year %> <%= author %> | Powered by <a href="https://hexo.io" target="_blank" rel="noopener noreferrer">Hexo</a> & <a href="https://github.com/cweiai/hexo-theme-cosmos" target="_blank" rel="noopener noreferrer">Cosmos</a>-<a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank" rel="noopener noreferrer">Chic</a></span>
+  </div>
+</footer>

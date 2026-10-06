@@ -1,0 +1,50 @@
+<%
+const c = cosmos();
+const chic = c.chic || {};
+const navname = chic.navname || c.brand.title || config.title;
+const nav = chic.nav || {};
+const norm = p => ('/' + String(p || '')).replace(/index\.html$/, '').replace(/\/+/g, '/');
+const current = norm(page.path);
+function isActive(href) {
+  const target = norm(String(href).replace(/^https?:\/\/[^\/]+/i, ''));
+  if (target === '/') return current === '/';
+  return current === target || current.startsWith(target + '/');
+}
+%>
+<header class="chic-header">
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar-header header-logo"><a href="<%= cosmos_route('home') %>"><%= navname %></a></div>
+      <div class="menu navbar-right">
+        <% for (const [label, path] of Object.entries(nav)) { const href = /^https?:/i.test(path) ? path : url_for(path); %>
+        <a class="menu-item<%= isActive(href) ? ' active' : '' %>" href="<%= href %>"<%= isActive(href) ? ' aria-current="page"' : '' %>><%= label %></a>
+        <% } %>
+        <input id="switch_default" type="checkbox" class="switch_default">
+        <label for="switch_default" class="toggleBtn"></label>
+      </div>
+    </div>
+  </nav>
+
+  <%# mobile %>
+  <nav class="navbar-mobile" id="nav-mobile" aria-label="<%= cx('main_navigation') %>">
+    <div class="container">
+      <div class="navbar-header">
+        <div>
+          <a href="<%= cosmos_route('home') %>"><%= navname %></a><a id="mobile-toggle-theme" href="javascript:;">·&nbsp;Light</a>
+        </div>
+        <div>
+          <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="<%= cx('open_navigation') %>">
+            <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M4.5 17.27q-.213 0-.356-.145T4 16.768t.144-.356t.356-.143h15q.213 0 .356.144q.144.144.144.357t-.144.356t-.356.143zm0-4.77q-.213 0-.356-.144T4 11.999t.144-.356t.356-.143h15q.213 0 .356.144q.144.144.144.357t-.144.356t-.356.143zm0-4.77q-.213 0-.356-.143Q4 7.443 4 7.23t.144-.356t.356-.143h15q.213 0 .356.144T20 7.23t-.144.356t-.356.144z"/></svg>
+            <svg class="close-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="m12 12.708l-5.246 5.246q-.14.14-.344.15t-.364-.15t-.16-.354t.16-.354L11.292 12L6.046 6.754q-.14-.14-.15-.344t.15-.364t.354-.16t.354.16L12 11.292l5.246-5.246q.14-.14.345-.15q.203-.01.363.15t.16.354t-.16.354L12.708 12l5.246 5.246q.14.14.15.345q.01.203-.15.363t-.354.16t-.354-.16z"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="menu" id="mobile-menu">
+        <% for (const [label, path] of Object.entries(nav)) { const href = /^https?:/i.test(path) ? path : url_for(path); %>
+        <a class="menu-item<%= isActive(href) ? ' active' : '' %>" href="<%= href %>"<%= isActive(href) ? ' aria-current="page"' : '' %>><%= label %></a>
+        <% } %>
+      </div>
+    </div>
+  </nav>
+</header>
+

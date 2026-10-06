@@ -1,0 +1,20 @@
+<% const c = cosmos(); const l = c.listing; %>
+<section class="index-page shell">
+  <header class="index-heading"><h1><%= cosmos_listing_title() %><% if (l.title_period) { %><span class="small-dot">.</span><% } %></h1></header>
+  <div class="post-wrap archive" data-default-list>
+    <% if (page.posts?.length) { %>
+      <% let last_year = ''; %>
+      <% page.posts.forEach(post => { %>
+        <% const cur_year = post.date.year(); %>
+        <% if (last_year !== cur_year) { %>
+          <h3 class="archive-year"><%= cur_year %></h3>
+        <% last_year = cur_year; } %>
+        <article class="archive-item">
+          <a class="archive-item-link" href="<%= url_for(post.path) %>"><%= entry_title(post) %></a>
+          <% if (l.date) { %><time class="archive-item-date" datetime="<%= date_xml(post.date) %>"><%= date(post.date, config.date_format) %></time><% } %>
+        </article>
+      <% }) %>
+    <% } else { %><p class="empty-message"><%= cx('empty') %></p><% } %>
+  </div>
+  <% if (page.total > 1) { %><nav class="pagination" aria-label="<%= cx('pagination') %>" data-default-pagination><%- paginator({prev_text:cx('previous'),next_text:cx('next'),mid_size:1,end_size:1}) %></nav><% } %>
+</section>

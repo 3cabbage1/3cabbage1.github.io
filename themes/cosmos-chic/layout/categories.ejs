@@ -1,0 +1,27 @@
+<section class="taxonomy-page shell">
+  <div class="post-wrap categories">
+    <h2 class="post-title taxonomy-chic-title"><span class="title-dash">-</span>&nbsp;Categories&nbsp;<span class="title-dash">·</span>&nbsp;<span class="taxonomy-count-inline"><%= site.categories.length %></span>&nbsp;<span class="title-dash">-</span></h2>
+    <div class="categories-card">
+      <% site.categories.sort('name').forEach(category_item => { %>
+        <div class="card-item">
+          <div class="categories">
+            <a href="<%= url_for(category_item.path) %>">
+              <h3><i class="iconfont icon-category" style="padding-right:3px" aria-hidden="true"></i><%= category_item.name %></h3>
+            </a>
+            <% let index = 0; category_item.posts.forEach(post_item => { index++; %>
+              <% if (index <= 5) { %>
+              <article class="archive-item">
+                <a class="archive-item-link" href="<%= url_for(post_item.path) %>"><%= entry_title(post_item) %></a>
+              </article>
+              <% } %>
+            <% }) %>
+            <% if (category_item.posts.length > 5) { %>
+            <a class="more-post-link" href="<%= url_for(category_item.path) %>">More &gt;&gt;</a>
+            <% } %>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+    <% if (!site.categories.length) { %><p class="empty-message"><%= cx('empty') %></p><% } %>
+  </div>
+</section>

@@ -1,0 +1,62 @@
+# Hexo 站点配置
+title: Your Name
+subtitle: Soar into the cosmos
+description: A personal blog built on the cosmos palette with Chic structure.
+author: Your Name
+language: en
+timezone: Asia/Shanghai
+url: https://3cabbage1.github.io
+permalink: posts/:title/
+permalink_defaults: null
+pretty_urls:
+  trailing_index: true
+  trailing_html: true
+
+# 目录（Chic 风格单数路径：/category/、/tag/）
+category_dir: category
+tag_dir: tag
+
+source_dir: source
+public_dir: public
+archive_dir: archives
+code_dir: downloads/code
+i18n_dir: :lang
+skip_render: null
+
+# 写作
+new_post_name: :title.md
+default_layout: post
+titlecase: false
+external_link:
+  enable: false
+filename_case: 0
+render_drafts: false
+post_asset_folder: false
+relative_link: false
+future: true
+syntax_highlighter: highlight.js
+
+# 首页文章列表放在 /blog/（cosmos cover 模式）
+index_generator:
+  path: blog
+  per_page: 10
+  order_by: -date
+
+default_category: uncategorized
+
+# 日期格式（列表页与文章页）
+date_format: YYYY-MM-DD
+time_format: HH:mm:ss
+
+# 分页
+per_page: 10
+pagination_dir: page
+
+# 主题
+theme: cosmos-chic
+
+# 部署
+deploy:
+  type: ''
+
+
