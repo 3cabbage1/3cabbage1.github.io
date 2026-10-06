@@ -82,8 +82,26 @@ blog/
         └── js/chic.js        # menu / theme switch / toc scripts
 ```
 
+## Deployment
+
+The site deploys to GitHub Pages via https://github.com/3cabbage1/3cabbage1.github.io:
+
+- `main` branch — built static site (`public/`), served by GitHub Pages
+- `source` branch — full blog source code
+
+After changing posts or config, run:
+
+```bash
+npm run deploy
+```
+
+The script rebuilds the site (`hexo clean && hexo generate`), adds `.nojekyll`,
+then pushes `public/` to `main` and the source to `source`.
+
+Live site: https://3cabbage1.github.io/
 ## Credits
 
 - [hexo-theme-cosmos](https://github.com/cweiai/hexo-theme-cosmos) (MIT)
 - [hexo-theme-Chic](https://github.com/Siricee/hexo-theme-Chic) (MIT)
 - [tocbot](https://github.com/tscanlin/tocbot)
+
