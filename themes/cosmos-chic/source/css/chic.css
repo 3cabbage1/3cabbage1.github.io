@@ -86,6 +86,12 @@ body.dark-theme .navbar-header a:hover { color: #fff; }
 .hero-copy .links .iconfont { font-size: 1.45em; line-height: 1; }
 .hero-copy .links svg.profile-contact-icon { width: 1.45em; height: 1.45em; color: currentColor; }
 
+/* index-tools: tags stay on one line, horizontally scrollable when overflowing */
+.index-page .index-tools { overflow: hidden; }
+.index-page .topic-nav { flex-wrap: nowrap; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: thin; scrollbar-color: var(--rule) transparent; -webkit-overflow-scrolling: touch; }
+.index-page .topic-nav::-webkit-scrollbar { width: 6px; height: 6px; }
+.index-page .topic-nav::-webkit-scrollbar-thumb { background-color: var(--rule); border-radius: 2px; }
+.index-page .topic-nav a { flex: 0 0 auto; }
 /* ===== Post list (Chic archives: year + title + date) ===== */
 .post-wrap { position: relative; width: 100%; max-width: 780px; margin: 0 auto; padding-top: 2rem; }
 .post-wrap.archive { position: relative; width: 100%; max-width: 780px; margin: 0 auto; padding: 2rem 0 1rem; }
@@ -118,7 +124,7 @@ body.dark-theme .navbar-header a:hover { color: #fff; }
 .article-page { position: relative; }
 .article-page .article-heading { padding-left: 0; max-width: 780px; margin: 0 auto; }
 .article-page .article-back { position: absolute; left: 0; top: 37px; }
-.article-page .article-layout { display: block; padding-top: 2rem; }
+.article-page .article-layout { display: block; position: relative; padding-top: 2rem; }
 .article-page .article-body { max-width: 780px; margin: 0 auto; }
 .post-meta { display: flex; gap: 8px 26px; flex-wrap: wrap; align-items: center; font-size: 14px; line-height: 1.9; color: var(--muted); margin-top: 26px; }
 .post-meta a { color: var(--accent); }
@@ -201,7 +207,8 @@ body.dark-theme .navbar-header a:hover { color: #fff; }
 .post-nav a.next:hover { transform: translateX(4px); color: var(--accent); }
 
 /* Chic post-toc (fixed right-side TOC) */
-.post-toc { position: fixed; top: 118px; right: 2em; width: 15rem; font-size: 12px; z-index: 5; }
+.post-toc { position: absolute; top: 0; right: 0; width: 15rem; font-size: 12px; z-index: 5; }
+.post-toc.is-stuck { position: fixed; top: 0; }
 .post-toc .tocbot-list { max-height: 450px; max-width: 250px; overflow: auto; position: relative; padding-right: 14px; }
 .post-toc .tocbot-list::-webkit-scrollbar { width: 6px; height: 6px; }
 .post-toc .tocbot-list::-webkit-scrollbar-thumb { width: 6px; background-color: var(--rule); border-radius: 2px; }
@@ -288,5 +295,6 @@ body.dark-theme .navbar-header a:hover { color: #fff; }
 @media print {
   .chic-header, .site-header, .footer, .post-toc, .reading-progress, .article-back { display: none !important; }
 }
+
 
 

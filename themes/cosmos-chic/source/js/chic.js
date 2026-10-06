@@ -53,6 +53,34 @@
     }
   });
 
+  /* ===== Post TOC: sits under the header on the right, becomes fixed
+     when it reaches the browser top (cosmos-style sticky) ===== */
+  const toc = document.querySelector('.post-toc');
+  const tocLayout = toc && toc.closest('.article-layout');
+  if (toc && tocLayout) {
+    const unstick = () => {
+      toc.classList.remove('is-stuck');
+      toc.style.left = '';
+      toc.style.width = '';
+      toc.style.right = '';
+    };
+    const evaluate = () => {
+      if (!toc.classList.contains('is-stuck')) {
+        const rect = toc.getBoundingClientRect();
+        if (rect.top <= 0 && tocLayout.getBoundingClientRect().top < 0) {
+          toc.style.left = rect.left + 'px';
+          toc.style.width = rect.width + 'px';
+          toc.style.right = 'auto';
+          toc.classList.add('is-stuck');
+        }
+      } else if (tocLayout.getBoundingClientRect().top >= 0) {
+        unstick();
+      }
+    };
+    document.addEventListener('scroll', () => evaluate(), { passive: true });
+    window.addEventListener('resize', () => { unstick(); evaluate(); });
+    evaluate();
+  }
   /* ===== Post TOC (Chic tocbot) ===== */
   if (window.tocbot && document.querySelector('.post-toc')) {
     const DEPTH_MAX = 6;
@@ -97,3 +125,4 @@
     bottomBtn && bottomBtn.addEventListener('click', () => window.scrollTo(0, document.body.scrollHeight));
   }
 })();
+
