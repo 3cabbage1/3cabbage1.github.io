@@ -216,12 +216,13 @@ body.dark-theme .navbar-header a:hover { color: #fff; }
 .post-toc .tocbot-list ul { list-style: none; position: inherit; }
 .post-toc .tocbot-list .is-collapsible { max-height: 1000px; overflow: hidden; transition: all 300ms ease-in-out; }
 .post-toc .tocbot-list .is-collapsed { max-height: 0; }
-.post-toc .tocbot-list .is-anchor-visible > .toc-link { font-weight: 700; }
 .post-toc .tocbot-list li { margin-left: 4px; }
-.post-toc a.toc-link { color: var(--muted); display: block; padding: 4px 0 4px 12px; border-left: 2px solid var(--rule); transition: color 180ms, border-color 180ms; }
+.post-toc a.toc-link { color: var(--muted); transition: color 180ms; }
 .post-toc a.toc-link:hover { color: var(--accent); }
-.post-toc a.toc-link::before { display: none; }
-.post-toc a.is-active-link { color: var(--accent); border-left-color: var(--accent); font-weight: 600; }
+/* Chic vertical line: only the heading at the current position gets the line */
+.post-toc a.toc-link::before { background-color: transparent; }
+.post-toc a.is-active-link { color: var(--accent); font-weight: 700; }
+.post-toc a.is-active-link::before { background-color: var(--accent); }
 .post-toc .tocbot-list-menu { margin: 16px 12px; font-size: 12px; }
 .post-toc .tocbot-list-menu a { display: block; margin: 6px 0; color: var(--muted); cursor: pointer; }
 .post-toc .tocbot-list-menu a:hover { color: var(--ink); }

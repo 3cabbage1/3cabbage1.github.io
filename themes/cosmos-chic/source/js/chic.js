@@ -108,7 +108,10 @@
       return target;
     }
 
+    // Chic initial state: nested lists collapsed — show at most Heading 2
+    const collapseToc = () => document.querySelectorAll('.post-toc .tocbot-list ul.is-collapsible:not(.is-collapsed)').forEach(ul => ul.classList.add('is-collapsed'));
     tocbot.init(objMerge(tocbotDefaultConfig, { collapseDepth: 1 }));
+    collapseToc();
 
     const expandBtn = document.querySelector('.tocbot-toc-expand');
     expandBtn && expandBtn.addEventListener('click', () => {
@@ -116,6 +119,7 @@
       if (expanded) expandBtn.removeAttribute('data-expanded');
       else expandBtn.setAttribute('data-expanded', 'true');
       tocbot.refresh(objMerge(tocbotDefaultConfig, { collapseDepth: expanded ? 1 : DEPTH_MAX }));
+      if (expanded) collapseToc();
       expandBtn.innerText = expanded ? 'Expand all' : 'Collapse all';
     });
 
