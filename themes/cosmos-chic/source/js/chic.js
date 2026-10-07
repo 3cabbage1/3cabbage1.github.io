@@ -104,6 +104,18 @@
     const tick = () => { evaluate(); requestAnimationFrame(tick); };
     requestAnimationFrame(tick);
     evaluate();
+    /* Clicking a TOC entry: if the destination will cross the stick point,
+       fix the TOC at the top slot immediately (Chic-style: it never travels
+       with the page, so no touch-top-and-bounce) */
+    toc.addEventListener('click', event => {
+      const link = event.target.closest('a[href^="#"]');
+      if (!link) return;
+      const heading = document.getElementById(decodeURIComponent(link.hash.slice(1)));
+      if (!heading) return;
+      const targetScrollY = heading.getBoundingClientRect().top + scrollY - 32; /* scroll-padding-top */
+      const layoutTopAfter = tocLayout.getBoundingClientRect().top + scrollY - targetScrollY;
+      if (layoutTopAfter <= 0) toc.classList.add('is-stuck');
+    });
   }
   /* ===== Post TOC (Chic tocbot) ===== */
   if (window.tocbot && document.querySelector('.post-toc')) {

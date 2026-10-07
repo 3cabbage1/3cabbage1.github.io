@@ -185,7 +185,7 @@ body.dark-theme .navbar-header a:hover { color: #fff; }
 .prose.post-content blockquote footer strong { margin-right: 0.5em; }
 
 /* Code copy button: smaller size, slightly smaller font, reduced top gap; cosmos styling otherwise */
-.prose .code-copy { min-height: 24px; padding: 3px 8px; font-size: 11px; margin-top: 8px; }
+.prose .code-copy {  min-height: 24px; padding: 2px 6px;font-size: 10px;  margin-top: 6px;}
 
 /* Chic post-copyright */
 .post-copyright { margin-top: 4rem; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 1.2rem 0; font-size: .8em; line-height: 1.5; }
