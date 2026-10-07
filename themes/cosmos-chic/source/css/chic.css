@@ -184,8 +184,8 @@ body.dark-theme .navbar-header a:hover { color: #fff; }
 .prose.post-content blockquote p { margin: 0; }
 .prose.post-content blockquote footer strong { margin-right: 0.5em; }
 
-/* Code copy button: smaller, vertically centered with the code row (also when single-line) */
-.prose .code-copy { align-self: center; margin-top: 0; min-height: 24px; padding: 2px 8px; font-size: 11px; line-height: 1.4; border: 1px solid var(--rule); border-radius: 4px; }
+/* Code copy button: only width & height reduced; original cosmos styling otherwise */
+.prose .code-copy { min-height: 24px; padding: 3px 8px; }
 
 /* Chic post-copyright */
 .post-copyright { margin-top: 4rem; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 1.2rem 0; font-size: .8em; line-height: 1.5; }
@@ -220,7 +220,7 @@ body.dark-theme .navbar-header a:hover { color: #fff; }
    touch) kept from the previous setup */
 /* 2rem from the browser (viewport) right edge in both states: calc(50% - 50vw) is viewport-relative for absolute (centered layout) and identical for fixed (50% of viewport) */
 /* line-height 2em: Chic body line-height inherited by the TOC (12px font => 24px lines) */
-.post-toc { position: absolute; top: 37px; right: calc(50% - 50vw + 2rem); width: 15rem; font-size: 12px; line-height: 2em; z-index: 5; }
+.post-toc { position: absolute; top: 37px; right: calc(50% - 50vw + 1.8rem); width: 15rem; font-size: 12px; line-height: 2em; z-index: 5; }
 /* fixed top 95px = Chic's 32px + 63px (navbar height + gap) */
 .post-toc.is-stuck { position: fixed; top: 95px; }
 .post-toc .tocbot-list { max-height: 450px; max-width: 250px; overflow: auto; position: relative; padding-right: 0.875rem; }
