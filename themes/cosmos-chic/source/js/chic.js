@@ -86,6 +86,7 @@
           toc.classList.add('is-stuck');
         } else if (layoutTop > tocThreshold && Date.now() > tocClickLock) {
           toc.classList.remove('is-stuck');
+          toc.style.top = '';
         }
       }
       if (back && page) {
@@ -113,7 +114,23 @@
     toc.addEventListener('click', event => {
       if (!event.target.closest('a[href^="#"]')) return;
       tocClickLock = Date.now() + 600;
-      toc.classList.add('is-stuck');
+      if (!toc.classList.contains('is-stuck')) {
+        /* glide from the current position to the fixed slot over 420ms with
+           easeInOutCubic — the same duration/easing/start time as tocbot's
+           scroll animation, so the two move in lockstep */
+        const startTop = toc.getBoundingClientRect().top;
+        toc.style.top = toc.getBoundingClientRect().top + 'px';
+        toc.classList.add('is-stuck');
+        const glideStart = performance.now();
+        const glide = now => {
+          const p = Math.min(1, (now - glideStart) / 420);
+          const eased = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+          toc.style.top = (startTop + (TOC_STICK_TOP - startTop) * eased) + 'px';
+          if (p < 1) requestAnimationFrame(glide);
+          else toc.style.top = '';
+        };
+        requestAnimationFrame(glide);
+      }
     });
   }
   /* ===== Post TOC (Chic tocbot) ===== */
