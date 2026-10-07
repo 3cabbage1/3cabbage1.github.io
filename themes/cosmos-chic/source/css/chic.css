@@ -203,6 +203,7 @@ body.dark-theme .navbar-header a:hover { color: #fff; }
 /* Chic post-nav — exact copy of Chic post_nav.styl (floats + clearfix);
    colors use the cosmos palette */
 .post-nav::before, .post-nav::after { content: " "; display: table; }
+.post-nav { padding-bottom: 3rem; } /* extra breathing room above the footer */
 .post-nav a.prev, .post-nav a.next { font-weight: 600; font-size: 16px; color: var(--ink); transition-property: transform; transition-timing-function: ease-out; transition-duration: 0.3s; }
 .post-nav a.prev { float: left; }
 .post-nav a.prev::before { content: "<"; margin-right: .5em; font-weight: bold; color: var(--accent); }
@@ -214,7 +215,7 @@ body.dark-theme .navbar-header a:hover { color: #fff; }
 /* Chic post-toc — exact structure from Chic post_toc.styl; colors use the
    cosmos palette; overall layout (under header, right side, sticky on top
    touch) kept from the previous setup */
-.post-toc { position: absolute; top: 37px; right: 0; width: 15rem; font-size: 12px; z-index: 5; }
+.post-toc { position: absolute; top: 37px; right: 2em; width: 15rem; font-size: 12px; z-index: 5; }
 .post-toc.is-stuck { position: fixed; top: 24px; }
 .post-toc .tocbot-list { max-height: 450px; max-width: 250px; overflow: auto; position: relative; padding-right: 0.875rem; }
 .post-toc .tocbot-list::-webkit-scrollbar { width: 6px; height: 6px; }
