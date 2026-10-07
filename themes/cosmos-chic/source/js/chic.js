@@ -63,8 +63,8 @@
   const BACK_NATURAL_TOP = 37; // natural offset inside .article-page
   const backThreshold = BACK_STICK_TOP - BACK_NATURAL_TOP; // page.top <= -13 => stick
   const TOC_STICK_TOP = 95;    // fixed offset from viewport top (Chic: 32 + 63)
-  const TOC_NATURAL_TOP = 37;  // natural offset inside .article-layout
-  const tocThreshold = TOC_STICK_TOP - TOC_NATURAL_TOP;    // layout.top <= -13 => stick
+  const TOC_NATURAL_TOP = 95;  // natural offset inside .article-layout (= stick top => seam at 0)
+  const tocThreshold = 0;      // layout.top <= 0 => stick, exact seamless seam
   if (toc || back) {
     const unstick = () => {
       if (toc) {
