@@ -123,7 +123,7 @@
         toc.classList.add('is-stuck');
         const glideStart = performance.now();
         const glide = now => {
-          const p = Math.min(1, (now - glideStart) / 420);
+          const p = Math.min(1, (now - glideStart) / 300);
           const eased = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
           toc.style.top = (startTop + (TOC_STICK_TOP - startTop) * eased) + 'px';
           if (p < 1) requestAnimationFrame(glide);
