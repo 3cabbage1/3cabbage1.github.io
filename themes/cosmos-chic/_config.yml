@@ -15,7 +15,7 @@ home:
   title: Huang       # => <span>Huang</span>
   aside: Yangyuxin   # => <em>Yangyuxin</em>
   # Chic home .description element (Markdown supported)
-  description: 'Write a one-line introduction here, **Markdown** supported.'
+  description: 'Stay Hungry.&emsp;Stay Foolish.'
   image:
     src: /image/abstract-star-sea.png
     alt: Abstract star sea illustration
@@ -45,7 +45,7 @@ chic:
     # Zhihu: https://www.zhihu.com/people/yourname
     # Weibo: https://weibo.com/yourname
     # Bilibili: https://space.bilibili.com/yourid
-    Email: mailto:huangyangyuxin@example.com
+    Email: mailto:hyyx011011@163.com
   # Post page
   post_toc_enable: true
   post_copyright_enable: true
@@ -54,7 +54,7 @@ chic:
   post_copyright_license_enable: true
   post_copyright_license_text: 'Copyright (c) 2026 <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE'
   post_copyright_slogan_enable: true
-  post_copyright_slogan_text: 'Do you believe in <strong>DESTINY</strong>?'
+  post_copyright_slogan_text: 'Stay Hungry. Stay Foolish.'
 
 pages:
   about: true
@@ -68,8 +68,8 @@ about:
   header: true
   header_html: ''
   sidebar_html: ''
-  title: About
-  aside: A little background.
+  title: Always learning.
+  aside: Still becoming.
   introduction: ''
   content: ''
   file: _content/about.md
@@ -80,10 +80,10 @@ about:
     avatar_alt: ''
     facts:
       - { label: Based in, value: China }
-      - { label: Occupation, value: Student / Developer }
+      - { label: Occupation, value: Student }
     email: ''
     contacts:
-      - { label: GitHub, url: 'https://github.com/yourname' }
+      - { label: GitHub, url: 'https://github.com/3cabbage1' }
 
 listing:
   title: ''
@@ -124,7 +124,8 @@ footer:
 # cosmos warm paper palette
 style:
   colors:
-    paper: '#f4eedf'
+    # '#f4eedf'
+    paper: '#f6efe1'
     paper_low: '#eae1d0'
     ink: '#342c24'
     muted: '#6c6052'
