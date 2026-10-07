@@ -53,32 +53,61 @@
     }
   });
 
-  /* ===== Post TOC: sits under the header on the right, becomes fixed
-     when it reaches the browser top (cosmos-style sticky) ===== */
+  /* ===== Sticky TOC & back link: fixed only after touching the browser top ===== */
   const toc = document.querySelector('.post-toc');
   const tocLayout = toc && toc.closest('.article-layout');
-  if (toc && tocLayout) {
+  const back = document.querySelector('.article-back');
+  const page = document.querySelector('.article-page');
+  const backDesktop = matchMedia('(min-width: 1201px)');
+  const BACK_STICK_TOP = 24;   // fixed offset from viewport top
+  const BACK_NATURAL_TOP = 37; // natural offset inside .article-page
+  const backThreshold = BACK_STICK_TOP - BACK_NATURAL_TOP; // page.top <= -13 => stick
+  if (toc || back) {
     const unstick = () => {
-      toc.classList.remove('is-stuck');
-      toc.style.left = '';
-      toc.style.width = '';
-      toc.style.right = '';
+      if (toc) {
+        toc.classList.remove('is-stuck');
+        toc.style.left = '';
+        toc.style.width = '';
+        toc.style.right = '';
+      }
+      if (back) {
+        back.classList.remove('is-stuck');
+        back.style.left = '';
+      }
     };
     const evaluate = () => {
-      if (!toc.classList.contains('is-stuck')) {
-        const rect = toc.getBoundingClientRect();
-        if (rect.top <= 0 && tocLayout.getBoundingClientRect().top < 0) {
-          toc.style.left = rect.left + 'px';
-          toc.style.width = rect.width + 'px';
-          toc.style.right = 'auto';
-          toc.classList.add('is-stuck');
+      if (toc && tocLayout) {
+        if (!toc.classList.contains('is-stuck')) {
+          const rect = toc.getBoundingClientRect();
+          if (rect.top <= 0 && tocLayout.getBoundingClientRect().top < 0) {
+            toc.style.left = rect.left + 'px';
+            toc.style.width = rect.width + 'px';
+            toc.style.right = 'auto';
+            toc.classList.add('is-stuck');
+          }
+        } else if (tocLayout.getBoundingClientRect().top >= 0) {
+          toc.classList.remove('is-stuck');
+          toc.style.left = '';
+          toc.style.width = '';
+          toc.style.right = '';
         }
-      } else if (tocLayout.getBoundingClientRect().top >= 0) {
-        unstick();
+      }
+      if (back && page) {
+        const pageTop = page.getBoundingClientRect().top;
+        if (!backDesktop.matches || pageTop > backThreshold) {
+          back.classList.remove('is-stuck');
+          back.style.left = '';
+        } else if (!back.classList.contains('is-stuck')) {
+          back.style.left = back.getBoundingClientRect().left + 'px';
+          back.classList.add('is-stuck');
+        }
       }
     };
     document.addEventListener('scroll', () => evaluate(), { passive: true });
     window.addEventListener('resize', () => { unstick(); evaluate(); });
+    backDesktop.addEventListener('change', () => evaluate());
+    const tick = () => { evaluate(); requestAnimationFrame(tick); };
+    requestAnimationFrame(tick);
     evaluate();
   }
   /* ===== Post TOC (Chic tocbot) ===== */
