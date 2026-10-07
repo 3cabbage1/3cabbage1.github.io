@@ -124,8 +124,7 @@ body.dark-theme .navbar-header a:hover { color: #fff; }
 /* ===== Post detail page (Chic structure) ===== */
 .article-page { position: relative; }
 .article-page .article-heading { padding-left: 0; max-width: 780px; margin: 0 auto; }
-.article-page .article-back { position: absolute; left: 0; top: 24px; }
-.article-page .article-back.is-stuck { position: fixed; top: 24px; }
+.article-page .article-back { position: absolute; left: 0; top: 37px; }
 .article-page .article-layout { display: block; position: relative; padding-top: 2rem; }
 .article-page .article-body { max-width: 780px; margin: 0 auto; }
 .post-meta { display: flex; gap: 8px 26px; flex-wrap: wrap; align-items: center; font-size: 14px; line-height: 1.9; color: var(--muted); margin-top: 26px; }
@@ -211,8 +210,8 @@ body.dark-theme .navbar-header a:hover { color: #fff; }
 /* Chic post-toc — exact structure from Chic post_toc.styl; colors use the
    cosmos palette; overall layout (under header, right side, sticky on top
    touch) kept from the previous setup */
-.post-toc { position: absolute; top: 24px; right: calc(50% - 50vw + 32px); width: 15rem; font-size: 12px; z-index: 5; }
-.post-toc.is-stuck { position: fixed; }
+.post-toc { position: absolute; top: 0; right: 0; width: 15rem; font-size: 12px; z-index: 5; }
+.post-toc.is-stuck { position: fixed; top: 0; }
 .post-toc .tocbot-list { max-height: 450px; max-width: 250px; overflow: auto; position: relative; padding-right: 0.875rem; }
 .post-toc .tocbot-list::-webkit-scrollbar { width: 6px; height: 6px; }
 .post-toc .tocbot-list::-webkit-scrollbar-thumb { width: 6px; background-color: var(--rule); border-radius: 2px; }
@@ -243,8 +242,7 @@ body.dark-theme .navbar-header a:hover { color: #fff; }
 @media (max-width: 980px) {
   .hero-copy .description, .hero-copy .hero-links, .hero-copy .links { margin-left: 44px; }
 }
-@media (max-width: 1200px) {
-  /* Below 1200px the back link follows the mobile-adaptive flow */
+@media (max-width: 900px) {
   .article-page .article-back { position: static; display: inline-flex; }
 }
 @media (max-width: 768px) {
