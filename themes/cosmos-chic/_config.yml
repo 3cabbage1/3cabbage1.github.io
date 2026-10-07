@@ -12,8 +12,8 @@ home:
   header: true   # Chic header on the home page too.
   footer: true   # Chic footer on the home page too.
   # hero-title: <span>姓</span> <em>名</em>
-  title: Your    # => <span>Your</span>
-  aside: Name    # => <em>Name</em>
+  title: Huang       # => <span>Huang</span>
+  aside: Yangyuxin   # => <em>Yangyuxin</em>
   # Chic home .description element (Markdown supported)
   description: 'Write a one-line introduction here, **Markdown** supported.'
   image:
@@ -31,7 +31,7 @@ routes:
 
 # Chic header navigation (label: path)
 chic:
-  navname: Your Name
+  navname: Huang Yangyuxin's Blog
   nav:
     Posts: /blog/
     Categories: /category/
@@ -41,11 +41,11 @@ chic:
   links_text_enable: false
   links_icon_enable: true
   links:
-    Github: https://github.com/yourname
+    Github: https://github.com/3cabbage1
     # Zhihu: https://www.zhihu.com/people/yourname
     # Weibo: https://weibo.com/yourname
     # Bilibili: https://space.bilibili.com/yourid
-    Email: mailto:yourname@example.com
+    Email: mailto:huangyangyuxin@example.com
   # Post page
   post_toc_enable: true
   post_copyright_enable: true

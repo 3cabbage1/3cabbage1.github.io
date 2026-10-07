@@ -98,7 +98,7 @@ description: One-line excerpt
 
 | Field | Description |
 | --- | --- |
-| `title` / `author` | Site title and author (replace all `Your Name` placeholders) |
+| `title` / `author` | Site title and author (currently `Huang Yangyuxin`) |
 | `subtitle` / `description` | Subtitle and site description |
 | `url` | Deployed domain (currently `https://3cabbage1.github.io`) |
 | `language` | UI language (currently `en`; UI copy matches the original projects) |
@@ -197,7 +197,7 @@ blog/
 ## FAQ
 
 **How do I replace the name placeholder?**
-Search for `Your Name` in `_config.yml` (title/author) and `themes/cosmos-chic/_config.yml` (`home.title` / `home.aside` / `chic.navname`).
+Search for `Huang Yangyuxin` in `_config.yml` (title/author) and `themes/cosmos-chic/_config.yml` (`home.title` / `home.aside` / `chic.navname`).
 
 **How do I change social links?**
 Edit `chic.links` in `themes/cosmos-chic/_config.yml`. Keys are lowercased to match iconfont icons (github / zhihu / weibo / rss, …); an `Email` entry automatically uses the envelope icon with a `mailto:` value.

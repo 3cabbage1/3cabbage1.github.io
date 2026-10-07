@@ -31,6 +31,13 @@ body { min-height: 100svh; }
 .navbar .container { width: min(var(--container), calc(100% - 48px)); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
 .navbar-header a { font-size: 20px; font-weight: 600; letter-spacing: -.02em; color: var(--ink); transition: color 180ms; white-space: nowrap; }
 .navbar-header a:hover { color: var(--accent); }
+/* Two-tone logo: the last word uses the hero <em> font (italic serif + accent);
+   on hover only the lead part changes color, Blog keeps its tone */
+.nav-aside { color: var(--accent); font-family: var(--serif); font-style: italic; font-weight: 500; }
+.site-header .brand { transition: color 180ms; }
+.site-header .brand:hover { color: var(--accent); }
+body.dark-theme .navbar-header a:hover,
+body.dark-theme .site-header .brand:hover { color: #fff; }
 .navbar .menu { display: flex; align-items: center; }
 .navbar .menu .menu-item { padding: 0 12px; font-size: 14px; color: var(--muted); min-height: 66px; display: flex; align-items: center; position: relative; transition: color 180ms; white-space: nowrap; }
 .navbar .menu .menu-item::after { position: absolute; bottom: 8px; left: 12px; right: 12px; height: 2px; background: var(--accent); content: ""; transform: scaleX(0); transform-origin: left; transition: transform 220ms var(--ease); }
@@ -89,9 +96,19 @@ body.dark-theme .navbar-header a:hover { color: #fff; }
 
 /* index-tools: tags stay on one line, horizontally scrollable when overflowing */
 .index-page .index-tools { overflow: hidden; }
-.index-page .topic-nav { flex-wrap: nowrap; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: thin; scrollbar-color: var(--rule) transparent; -webkit-overflow-scrolling: touch; }
-.index-page .topic-nav::-webkit-scrollbar { width: 6px; height: 6px; }
+.index-page .topic-nav { flex-wrap: nowrap; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: thin; scrollbar-color: var(--rule) transparent; -webkit-overflow-scrolling: touch; padding-bottom: 10px; }
+.index-page .topic-nav::-webkit-scrollbar { width: 6px; height: 6px; background: transparent; }
+.index-page .topic-nav::-webkit-scrollbar:hover { background: transparent; }
 .index-page .topic-nav::-webkit-scrollbar-thumb { background-color: var(--rule); border-radius: 2px; }
+.index-page .topic-nav::-webkit-scrollbar-thumb:hover,
+.index-page .topic-nav::-webkit-scrollbar-thumb:active { background-color: var(--rule); }
+.index-page .topic-nav::-webkit-scrollbar-track,
+.index-page .topic-nav::-webkit-scrollbar-track-piece,
+.index-page .topic-nav::-webkit-scrollbar-corner,
+.index-page .topic-nav::-webkit-scrollbar-track:hover,
+.index-page .topic-nav::-webkit-scrollbar-track-piece:hover,
+.index-page .topic-nav::-webkit-scrollbar-track:active,
+.index-page .topic-nav::-webkit-scrollbar-track-piece:active { background: transparent; background-color: transparent; }
 .index-page .topic-nav a { flex: 0 0 auto; }
 /* ===== Post list (Chic archives: year + title + date) ===== */
 .post-wrap { position: relative; width: 100%; max-width: 780px; margin: 0 auto; padding-top: 2rem; }

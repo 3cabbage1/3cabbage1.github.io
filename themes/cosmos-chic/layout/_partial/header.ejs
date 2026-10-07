@@ -2,6 +2,9 @@
 const c = cosmos();
 const chic = c.chic || {};
 const navname = chic.navname || c.brand.title || config.title;
+const navWords = navname.trim().split(/\s+/);
+const navLead = navWords.length > 1 ? navWords.slice(0, -1).join(' ') : navname;
+const navAside = navWords.length > 1 ? navWords.slice(-1)[0] : '';
 const nav = chic.nav || {};
 const norm = p => ('/' + String(p || '')).replace(/index\.html$/, '').replace(/\/+/g, '/');
 const current = norm(page.path);
@@ -17,7 +20,7 @@ const isHome = page.journal_home === true;
 <header class="chic-header">
   <nav class="navbar">
     <div class="container">
-      <div class="navbar-header header-logo"><a href="<%= cosmos_route('home') %>"><%= navname %></a></div>
+      <div class="navbar-header header-logo"><a href="<%= cosmos_route('home') %>"><%= navLead %><% if (navAside) { %> <span class="nav-aside"><%= navAside %></span><% } %></a></div>
       <div class="menu navbar-right">
         <% for (const [label, path] of Object.entries(nav)) { const href = /^https?:/i.test(path) ? path : url_for(path); %>
         <a class="menu-item<%= isActive(href) ? ' active' : '' %>" href="<%= href %>"<%= isActive(href) ? ' aria-current="page"' : '' %>><%= label %></a>
@@ -33,7 +36,7 @@ const isHome = page.journal_home === true;
     <div class="container">
       <div class="navbar-header">
         <div>
-          <a href="<%= cosmos_route('home') %>"><%= navname %></a>
+          <a href="<%= cosmos_route('home') %>"><%= navLead %><% if (navAside) { %> <span class="nav-aside"><%= navAside %></span><% } %></a>
         </div>
         <div>
           <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="<%= cx('open_navigation') %>">
@@ -53,7 +56,7 @@ const isHome = page.journal_home === true;
 <% } else { %>
 <%# cosmos site-header layout (all other pages) %>
 <header class="site-header shell">
-  <a class="brand" href="<%= cosmos_route('home') %>" aria-label="<%= navname %> — <%= cx('home') %>"><span class="brand-title"><span><%= navname %></span></span></a>
+  <a class="brand" href="<%= cosmos_route('home') %>" aria-label="<%= navname %> — <%= cx('home') %>"><span class="brand-title"><span><%= navLead %><% if (navAside) { %> <span class="nav-aside"><%= navAside %></span><% } %></span></span></a>
   <div class="header-actions">
     <nav id="site-nav" class="site-nav" aria-label="<%= cx('main_navigation') %>">
       <% for (const [label, path] of Object.entries(nav)) { const href = /^https?:/i.test(path) ? path : url_for(path); %>

@@ -100,7 +100,7 @@ description: 一句话摘要
 
 | 字段 | 说明 |
 | --- | --- |
-| `title` / `author` | 站点标题与作者（替换所有 `Your Name` 占位） |
+| `title` / `author` | 站点标题与作者（当前为 `Huang Yangyuxin`） |
 | `subtitle` / `description` | 副标题与站点描述 |
 | `url` | 部署域名（当前为 `https://3cabbage1.github.io`） |
 | `language` | 界面语言（当前 `en`，界面文案为原项目英文原样） |
@@ -199,7 +199,7 @@ blog/
 ## 常见问题
 
 **如何替换姓名占位？**
-搜索 `Your Name`：`_config.yml`（title/author）与 `themes/cosmos-chic/_config.yml`（`home.title`/`home.aside`/`chic.navname`）。
+搜索 `Huang Yangyuxin`：`_config.yml`（title/author）与 `themes/cosmos-chic/_config.yml`（`home.title`/`home.aside`/`chic.navname`）。
 
 **如何修改社交链接？**
 `themes/cosmos-chic/_config.yml` 的 `chic.links`。key 小写后匹配 iconfont 图标（github / zhihu / weibo / rss 等）；`Email` 条目自动使用信封图标，值填 `mailto:你的邮箱`。
