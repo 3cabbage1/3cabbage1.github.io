@@ -4,28 +4,28 @@
 
   /* ===== Light/dark theme switch (Chic toggleBtn) ===== */
   const pagebody = document.body;
-  const switchDefault = document.getElementById('switch_default');
+  const switches = [document.getElementById('switch_default'), document.getElementById('switch_default_mobile')].filter(Boolean);
 
   function setTheme(status = 'light') {
     if (status === 'dark') {
       window.sessionStorage.theme = 'dark';
       pagebody.classList.add('dark-theme');
-      if (switchDefault) switchDefault.checked = true;
+      switches.forEach(s => { s.checked = true; });
     } else {
       window.sessionStorage.theme = 'light';
       pagebody.classList.remove('dark-theme');
-      if (switchDefault) switchDefault.checked = false;
+      switches.forEach(s => { s.checked = false; });
     }
   }
 
   setTheme(window.sessionStorage.theme ?? 'light');
 
-  switchDefault && switchDefault.addEventListener('change', () => {
-    setTheme(switchDefault.checked ? 'dark' : 'light');
-  });
+  switches.forEach(s => s.addEventListener('change', () => {
+    setTheme(s.checked ? 'dark' : 'light');
+  }));
 
   /* ===== Home mobile menu (Chic navbar-mobile) ===== */
-  const menuToggle = document.querySelector('.chic-header .menu-toggle');
+  const menuToggle = document.querySelector('.navbar-mobile .menu-toggle');
   const mobileMenu = document.getElementById('mobile-menu');
 
   function closeMenu() {

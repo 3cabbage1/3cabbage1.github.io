@@ -12,7 +12,7 @@ const hasToc = chic.post_toc_enable !== false && p.toc && toc(page.content).leng
     <% if (p.description && page.description) { %><p class="article-deck"><%= page.description %></p><% } %>
     <div class="post-meta">
       <% if (p.author && (page.author || config.author)) { %>
-      <span class="post-author">Author: <a itemprop="author" rel="author" href="<%= cosmos_route('home') %>"><%= page.author || config.author %></a></span>
+      <span class="post-author">Author: <a itemprop="author" rel="author" href="<%= cosmos_route('about') %>"><%= page.author || config.author %></a></span>
       <% } %>
       <% if (p.date && page.date) { %>
       <span class="post-time">Date: <a href="<%= url_for(page.path) %>"><%= date(page.date, config.date_format) %></a></span>
