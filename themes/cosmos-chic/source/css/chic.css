@@ -215,8 +215,9 @@ body.dark-theme .navbar-header a:hover { color: #fff; }
 /* Chic post-toc — exact structure from Chic post_toc.styl; colors use the
    cosmos palette; overall layout (under header, right side, sticky on top
    touch) kept from the previous setup */
-.post-toc { position: absolute; top: 37px; right: 2em; width: 15rem; font-size: 12px; z-index: 5; }
-.post-toc.is-stuck { position: fixed; top: 24px; }
+/* 2rem from the browser (viewport) right edge in both states: calc(50% - 50vw) is viewport-relative for absolute (centered layout) and identical for fixed (50% of viewport) */
+.post-toc { position: absolute; top: 37px; right: calc(50% - 50vw + 2rem); width: 15rem; font-size: 12px; z-index: 5; }
+.post-toc.is-stuck { position: fixed; top: 48px; }
 .post-toc .tocbot-list { max-height: 450px; max-width: 250px; overflow: auto; position: relative; padding-right: 0.875rem; }
 .post-toc .tocbot-list::-webkit-scrollbar { width: 6px; height: 6px; }
 .post-toc .tocbot-list::-webkit-scrollbar-thumb { width: 6px; background-color: var(--rule); border-radius: 2px; }

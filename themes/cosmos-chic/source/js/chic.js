@@ -62,7 +62,7 @@
   const BACK_STICK_TOP = 24;   // fixed offset from viewport top
   const BACK_NATURAL_TOP = 37; // natural offset inside .article-page
   const backThreshold = BACK_STICK_TOP - BACK_NATURAL_TOP; // page.top <= -13 => stick
-  const TOC_STICK_TOP = 24;    // fixed offset from viewport top
+  const TOC_STICK_TOP = 48;    // fixed offset from viewport top
   const TOC_NATURAL_TOP = 37;  // natural offset inside .article-layout
   const tocThreshold = TOC_STICK_TOP - TOC_NATURAL_TOP;    // layout.top <= -13 => stick
   if (toc || back) {
@@ -81,19 +81,10 @@
     const evaluate = () => {
       if (toc && tocLayout) {
         const layoutTop = tocLayout.getBoundingClientRect().top;
-        if (!toc.classList.contains('is-stuck')) {
-          if (layoutTop <= tocThreshold) {
-            const rect = toc.getBoundingClientRect();
-            toc.style.left = rect.left + 'px';
-            toc.style.width = rect.width + 'px';
-            toc.style.right = 'auto';
-            toc.classList.add('is-stuck');
-          }
+        if (layoutTop <= tocThreshold) {
+          toc.classList.add('is-stuck');
         } else if (layoutTop > tocThreshold) {
           toc.classList.remove('is-stuck');
-          toc.style.left = '';
-          toc.style.width = '';
-          toc.style.right = '';
         }
       }
       if (back && page) {
