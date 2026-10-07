@@ -65,6 +65,7 @@
   const TOC_STICK_TOP = 95;    // fixed offset from viewport top (Chic: 32 + 63)
   const TOC_NATURAL_TOP = 95;  // natural offset inside .article-layout (= stick top => seam at 0)
   const tocThreshold = 0;      // layout.top <= 0 => stick, exact seamless seam
+  let tocClickLock = 0;
   if (toc || back) {
     const unstick = () => {
       if (toc) {
@@ -83,7 +84,7 @@
         const layoutTop = tocLayout.getBoundingClientRect().top;
         if (layoutTop <= tocThreshold) {
           toc.classList.add('is-stuck');
-        } else if (layoutTop > tocThreshold) {
+        } else if (layoutTop > tocThreshold && Date.now() > tocClickLock) {
           toc.classList.remove('is-stuck');
         }
       }
@@ -104,17 +105,15 @@
     const tick = () => { evaluate(); requestAnimationFrame(tick); };
     requestAnimationFrame(tick);
     evaluate();
-    /* Clicking a TOC entry: if the destination will cross the stick point,
-       fix the TOC at the top slot immediately (Chic-style: it never travels
-       with the page, so no touch-top-and-bounce) */
+    /* Clicking a TOC entry: fix it at the top slot immediately and lock the
+       fixed state through the 420ms tocbot scroll animation. Without the
+       lock, evaluate() would strip is-stuck while layout.top is still above
+       the threshold (before the animation crosses it), making the TOC travel
+       with the page, overshoot the top and bounce back. */
     toc.addEventListener('click', event => {
-      const link = event.target.closest('a[href^="#"]');
-      if (!link) return;
-      const heading = document.getElementById(decodeURIComponent(link.hash.slice(1)));
-      if (!heading) return;
-      const targetScrollY = heading.getBoundingClientRect().top + scrollY - 32; /* scroll-padding-top */
-      const layoutTopAfter = tocLayout.getBoundingClientRect().top + scrollY - targetScrollY;
-      if (layoutTopAfter <= 0) toc.classList.add('is-stuck');
+      if (!event.target.closest('a[href^="#"]')) return;
+      tocClickLock = Date.now() + 600;
+      toc.classList.add('is-stuck');
     });
   }
   /* ===== Post TOC (Chic tocbot) ===== */
