@@ -84,6 +84,7 @@ about:
     email: ''
     contacts:
       - { label: GitHub, url: 'https://github.com/3cabbage1' }
+      - { label: Email, url: 'mailto:huangyangyuxin@example.com' }
 
 listing:
   title: ''
@@ -181,7 +182,6 @@ custom:
   after_content: ''
   after_about: ''
   after_post: ''
-
 
 
 

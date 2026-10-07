@@ -213,7 +213,7 @@ body.dark-theme .navbar-header a:hover { color: #fff; }
 .post-copyright a:hover { text-decoration: underline; }
 
 /* Chic post-tags */
-.post-tags { padding: 1.2rem 0 1rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: 14px; }
+.post-tags { padding: 1rem 0 1rem; display: flex; justify-content: space-between; }
 .post-tags .tag a { color: var(--accent); }
 .post-tags .tag a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .tag:not(:last-child) a::after { content: " / "; color: var(--muted); }
@@ -286,9 +286,10 @@ body.dark-theme .navbar-header a:hover { color: #fff; }
   .navbar-mobile .menu-toggle .close-icon { display: none; }
   .navbar-mobile .menu-toggle.active .menu-icon { display: none; }
   .navbar-mobile .menu-toggle.active .close-icon { display: block; }
-  .navbar-mobile .menu { display: none; text-align: center; border-top: 1px solid var(--rule); padding: 8px 0 16px; }
+  /* Chic mobile menu: all entries on one row, horizontally scrollable when overflowing */
+  .navbar-mobile .menu { display: none; text-align: center; border-top: 1px solid var(--rule); padding: 8px 0 16px; white-space: nowrap; overflow-x: auto; }
   .navbar-mobile .menu.active { display: block; }
-  .navbar-mobile .menu a { display: block; line-height: 2.5; padding: 8px 24px; min-height: 44px; }
+  .navbar-mobile .menu a { display: inline-block; margin: 0 1em; line-height: 2.5em; padding: 4px 0; }
   .navbar-mobile .menu a.active, .navbar-mobile .menu a[aria-current] { color: var(--accent); }
 
   .shell, .hero-stage { width: calc(100% - 48px); }
@@ -299,8 +300,12 @@ body.dark-theme .navbar-header a:hover { color: #fff; }
   .archive-item-link { white-space: normal; overflow-wrap: anywhere; }
   .archive-item-date { font-size: 13px; }
   .post-copyright .copyright-item { flex-direction: column; gap: 2px; }
-  .post-tags { flex-direction: column; }
   .footer { line-height: 1.8; padding: 1.2rem 24px; }
+}
+@media (max-width: 720px) {
+  /* cosmos mobile nav (other pages): one row like Chic, scrollable when overflowing */
+  .js .site-nav.is-open { flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: center; overflow-x: auto; gap: 0; }
+  .site-nav a { padding: 8px 12px; }
 }
 @media (max-width: 479px) {
   /* Chic media 479: categories collapse */
