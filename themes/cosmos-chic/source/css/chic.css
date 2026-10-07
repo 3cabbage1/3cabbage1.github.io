@@ -141,7 +141,7 @@ body.dark-theme .navbar-header a:hover { color: #fff; }
 /* ===== Post detail page (Chic structure) ===== */
 .article-page { position: relative; }
 .article-page .article-heading { padding-left: 0; max-width: 780px; margin: 0 auto; }
-.article-page .article-back { position: absolute; left: 0; top: 37px; }
+.article-page .article-back { position: absolute; left: 0; top: 37px; z-index: 10; }
 .article-page .article-back.is-stuck { position: fixed; top: 24px; }
 .article-page .article-layout { display: block; position: relative; padding-top: 2rem; }
 .article-page .article-body { max-width: 780px; margin: 0 auto; }
