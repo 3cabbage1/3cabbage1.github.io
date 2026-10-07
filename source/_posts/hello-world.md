@@ -1,9 +1,9 @@
 ---
-title: 你好，世界
+title: Hello, World!
 date: 2026-10-01 10:00:00
-categories: [Essays]
-tags: [Getting Started, Blog]
-description: 博客的第一篇文章——为什么开始写作。
+categories: [个人随记]
+tags: [随记]
+
 ---
 
 这是博客的第一篇文章。
