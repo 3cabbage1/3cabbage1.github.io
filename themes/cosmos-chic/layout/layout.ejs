@@ -45,6 +45,7 @@ const brand = c.brand.title || config.title;
   <script defer src="<%= url_for('/js/main.js') %>"></script>
   <script defer src="<%= url_for('/js/tocbot.min.js') %>"></script>
   <script defer src="<%= url_for('/js/chic.js') %>"></script>
+  <script defer src="<%= url_for('/js/toc-fix.js') %>"></script>
   <%- c.custom.head %>
 </head>
 <body class="<%= cover ? 'is-home' : is_post() ? 'is-post' : aboutPage ? 'is-about' : 'is-index' %>" data-root="<%= url_for('/') %>" data-blog="<%= cosmos_route('blog') %>" data-copy-code="<%= is_post() ? cosmos_post().copy_code : c.post.copy_code %>">

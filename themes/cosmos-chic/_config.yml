@@ -15,7 +15,7 @@ home:
   title: Huang       # => <span>Huang</span>
   aside: Yangyuxin   # => <em>Yangyuxin</em>
   # Chic home .description element (Markdown supported)
-  description: 'Stay Hungry.&emsp;Stay Foolish.'
+  description: 'Hoping that a random universe works out in your favor.'
   image:
     src: /image/abstract-star-sea.png
     alt: Abstract star sea illustration

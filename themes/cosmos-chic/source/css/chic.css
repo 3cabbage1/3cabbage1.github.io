@@ -246,6 +246,7 @@ body.dark-theme .navbar-header a:hover { color: #fff; }
 .post-toc .tocbot-list::-webkit-scrollbar-thumb { width: 6px; background-color: var(--rule); border-radius: 2px; }
 .post-toc .tocbot-list ul { list-style: none; position: inherit; overflow: hidden; }
 .post-toc .tocbot-list li { margin-left: 0.25rem; }
+.post-toc .tocbot-list.no-toc-anim ul.is-collapsible { transition: none !important; }
 .post-toc a.toc-link { color: var(--muted); transition: color 180ms; }
 .post-toc a.toc-link:hover { color: var(--accent); }
 .post-toc a.toc-link::before { background-color: transparent; }
