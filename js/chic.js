@@ -1,0 +1,185 @@
+/* Cosmos-Chic: theme switch, home mobile menu & TOC scripts */
+(() => {
+  'use strict';
+
+  /* ===== Light/dark theme switch (Chic toggleBtn) ===== */
+  const pagebody = document.body;
+  const switches = [document.getElementById('switch_default'), document.getElementById('switch_default_mobile')].filter(Boolean);
+
+  function setTheme(status = 'light') {
+    if (status === 'dark') {
+      window.sessionStorage.theme = 'dark';
+      pagebody.classList.add('dark-theme');
+      switches.forEach(s => { s.checked = true; });
+    } else {
+      window.sessionStorage.theme = 'light';
+      pagebody.classList.remove('dark-theme');
+      switches.forEach(s => { s.checked = false; });
+    }
+  }
+
+  setTheme(window.sessionStorage.theme ?? 'light');
+
+  switches.forEach(s => s.addEventListener('change', () => {
+    setTheme(s.checked ? 'dark' : 'light');
+  }));
+
+  /* ===== Home mobile menu (Chic navbar-mobile) ===== */
+  const menuToggle = document.querySelector('.navbar-mobile .menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  function closeMenu() {
+    if (!menuToggle) return;
+    menuToggle.classList.remove('active');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    mobileMenu && mobileMenu.classList.remove('active');
+  }
+
+  menuToggle && menuToggle.addEventListener('click', () => {
+    const open = !menuToggle.classList.contains('active');
+    menuToggle.classList.toggle('active', open);
+    menuToggle.setAttribute('aria-expanded', String(open));
+    mobileMenu && mobileMenu.classList.toggle('active', open);
+  });
+  mobileMenu && mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => closeMenu()));
+  document.addEventListener('click', event => {
+    if (menuToggle && !event.target.closest('.navbar-mobile')) closeMenu();
+  });
+  matchMedia('(min-width: 769px)').addEventListener('change', () => closeMenu());
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && menuToggle?.classList.contains('active')) {
+      closeMenu();
+      menuToggle.focus();
+    }
+  });
+
+  /* ===== Sticky TOC & back link: fixed only after touching the browser top ===== */
+  const toc = document.querySelector('.post-toc');
+  const tocLayout = toc && toc.closest('.article-layout');
+  const back = document.querySelector('.article-back');
+  const page = document.querySelector('.article-page');
+  const backDesktop = matchMedia('(min-width: 1201px)');
+  const BACK_STICK_TOP = 24;   // fixed offset from viewport top
+  const BACK_NATURAL_TOP = 37; // natural offset inside .article-page
+  const backThreshold = BACK_STICK_TOP - BACK_NATURAL_TOP; // page.top <= -13 => stick
+  const TOC_STICK_TOP = 95;    // fixed offset from viewport top (Chic: 32 + 63)
+  const TOC_NATURAL_TOP = 95;  // natural offset inside .article-layout (= stick top => seam at 0)
+  const tocThreshold = 0;      // layout.top <= 0 => stick, exact seamless seam
+  let tocClickLock = 0;
+  if (toc || back) {
+    const unstick = () => {
+      if (toc) {
+        toc.classList.remove('is-stuck');
+        toc.style.left = '';
+        toc.style.width = '';
+        toc.style.right = '';
+      }
+      if (back) {
+        back.classList.remove('is-stuck');
+        back.style.left = '';
+      }
+    };
+    const evaluate = () => {
+      if (toc && tocLayout) {
+        const layoutTop = tocLayout.getBoundingClientRect().top;
+        if (layoutTop <= tocThreshold) {
+          toc.classList.add('is-stuck');
+        } else if (layoutTop > tocThreshold && Date.now() > tocClickLock) {
+          toc.classList.remove('is-stuck');
+          toc.style.top = '';
+        }
+      }
+      if (back && page) {
+        const pageTop = page.getBoundingClientRect().top;
+        if (!backDesktop.matches || pageTop > backThreshold) {
+          back.classList.remove('is-stuck');
+          back.style.left = '';
+        } else if (!back.classList.contains('is-stuck')) {
+          back.style.left = back.getBoundingClientRect().left + 'px';
+          back.classList.add('is-stuck');
+        }
+      }
+    };
+    document.addEventListener('scroll', () => evaluate(), { passive: true });
+    window.addEventListener('resize', () => { unstick(); evaluate(); });
+    backDesktop.addEventListener('change', () => evaluate());
+    const tick = () => { evaluate(); requestAnimationFrame(tick); };
+    requestAnimationFrame(tick);
+    evaluate();
+    /* Clicking a TOC entry: fix it at the top slot immediately and lock the
+       fixed state through the 420ms tocbot scroll animation. Without the
+       lock, evaluate() would strip is-stuck while layout.top is still above
+       the threshold (before the animation crosses it), making the TOC travel
+       with the page, overshoot the top and bounce back. */
+    toc.addEventListener('click', event => {
+      if (!event.target.closest('a[href^="#"]')) return;
+      tocClickLock = Date.now() + 600;
+      if (!toc.classList.contains('is-stuck')) {
+        /* glide from the current position to the fixed slot over 420ms with
+           easeInOutCubic — the same duration/easing/start time as tocbot's
+           scroll animation, so the two move in lockstep */
+        const startTop = toc.getBoundingClientRect().top;
+        toc.style.top = toc.getBoundingClientRect().top + 'px';
+        toc.classList.add('is-stuck');
+        const glideStart = performance.now();
+        const glide = now => {
+          const p = Math.min(1, (now - glideStart) / 300);
+          const eased = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+          toc.style.top = (startTop + (TOC_STICK_TOP - startTop) * eased) + 'px';
+          if (p < 1) requestAnimationFrame(glide);
+          else toc.style.top = '';
+        };
+        requestAnimationFrame(glide);
+      }
+    });
+  }
+  /* ===== Post TOC (Chic tocbot) ===== */
+  if (window.tocbot && document.querySelector('.post-toc')) {
+    const DEPTH_MAX = 6;
+    let tocbotTimer;
+    const tocbotDefaultConfig = {
+      tocSelector: '.tocbot-list',
+      contentSelector: '.post-content',
+      headingSelector: 'h1, h2, h3, h4, h5',
+      orderedList: false,
+      scrollSmooth: true,
+      onClick: extendClick
+    };
+
+    function extendClick() {
+      clearTimeout(tocbotTimer);
+      tocbotTimer = setTimeout(() => {
+        tocbot.refresh(objMerge(tocbotDefaultConfig, { hasInnerContainers: true }));
+      }, 420);
+    }
+
+    function objMerge(target, source) {
+      for (const item in source) {
+        if (Object.prototype.hasOwnProperty.call(source, item)) target[item] = source[item];
+      }
+      return target;
+    }
+
+    // Chic initial state: nested lists collapsed — show at most Heading 2
+    const collapseToc = () => document.querySelectorAll('.post-toc .tocbot-list ul.is-collapsible:not(.is-collapsed)').forEach(ul => ul.classList.add('is-collapsed'));
+    tocbot.init(objMerge(tocbotDefaultConfig, { collapseDepth: 1 }));
+    collapseToc();
+
+    const expandBtn = document.querySelector('.tocbot-toc-expand');
+    expandBtn && expandBtn.addEventListener('click', () => {
+      const expanded = expandBtn.getAttribute('data-expanded');
+      if (expanded) expandBtn.removeAttribute('data-expanded');
+      else expandBtn.setAttribute('data-expanded', 'true');
+      tocbot.refresh(objMerge(tocbotDefaultConfig, { collapseDepth: expanded ? 1 : DEPTH_MAX }));
+      if (expanded) collapseToc();
+      expandBtn.innerText = expanded ? 'Expand all' : 'Collapse all';
+    });
+
+    const topBtn = document.querySelector('.tocbot-toc-top');
+    topBtn && topBtn.addEventListener('click', () => window.scrollTo(0, 0));
+    const bottomBtn = document.querySelector('.tocbot-toc-bottom');
+    bottomBtn && bottomBtn.addEventListener('click', () => window.scrollTo(0, document.body.scrollHeight));
+  }
+})();
+
+
